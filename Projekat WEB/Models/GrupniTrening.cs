@@ -7,10 +7,12 @@ namespace Projekat_WEB.Models
 {
     public class GrupniTrening
     {
-        public GrupniTrening(string naziv, TipTreningaEnum.TipTreninga tipTreninga, FitnesCentar fitnesCentar, int trajanjeTreninga, DateTime datumIVremeTreninga, int maxBrojPosetilaca, List<Korisnik> korisnici)
+        public GrupniTrening(string naziv, string tipTreninga, FitnesCentar fitnesCentar, int trajanjeTreninga, DateTime datumIVremeTreninga, int maxBrojPosetilaca, List<Korisnik> korisnici)
         {
             Naziv = naziv;
-            TipTreninga = tipTreninga;
+            TipTreningaEnum tip = new TipTreningaEnum();
+            tipTreninga = ;
+
             FitnesCentar = fitnesCentar;
             TrajanjeTreninga = trajanjeTreninga;
             DatumIVremeTreninga = datumIVremeTreninga;
@@ -19,7 +21,7 @@ namespace Projekat_WEB.Models
         }
 
         public string Naziv { get; set; }
-        public TipTreningaEnum.TipTreninga TipTreninga { get; set; }
+        //public TipTreningaEnum.TipTreninga TipTreninga { get; set; }
         public FitnesCentar FitnesCentar { get; set; }
         public int TrajanjeTreninga { get; set; }
         public DateTime DatumIVremeTreninga { get; set; }

@@ -13,5 +13,13 @@ namespace Projekat_WEB.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //public ActionResult DodajKorisnika(string korisnickoime,string lozinka,string uloga)
+        //{
+
+        //    return View("Index");
+        //}
+
     }
 }

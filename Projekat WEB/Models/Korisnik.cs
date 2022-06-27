@@ -22,7 +22,7 @@ namespace Projekat_WEB.Models
             AngazovanTrenerFitnesCentra = angazovanTrenerFitnesCentra;
             VlasnikFitnesCentra = vlasnikFitnesCentra;
         }
-
+        public Korisnik() { }
         public  string KorisnickoIme { get; set; }
         public string Lozinka { get; set; }
         public string Ime { get; set; }

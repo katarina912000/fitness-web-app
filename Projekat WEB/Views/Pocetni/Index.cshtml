@@ -1,32 +1,158 @@
-﻿
-<form>
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td>
-                <input type="text" name="korisnickoime" />
-            </td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td>
-                <input type="text" name="lozinka" />
-            </td>
-        </tr>
-        <tr>
-            <td>Uloga:</td>
-            <td>
-                <input list="uloge" name="uloga" />
-                <datalist id="uloge">
-                    <option value="POSETILAC"></option>
-                    <option value="TRENER"></option>
-                    <option value="VLASNIK"></option>
-                </datalist>
-            </td>
-        </tr>
-        
-    </table>
-</form>
+﻿@{ 
+    Layout = null;
+}
+<html>
+    <head>
+        <style>
+            img {
+                border: 3px solid red;
+                padding: 5px;
+                margin: 4px;
+            }
+            table,th,td,tr{
+                border: 1px solid;
+                border-color: antiquewhite;
+                color: antiquewhite;
+            }
+            
 
-<img src="picture.jpg"/>
+        </style>
+    </head>
+    <body style="background-image:url(../../Content/Slike/fitnes1.jpg); max-width:100%; height:auto; ">
+       <p style="color:antiquewhite;
+                font-size:25px;
+                
+                text-align:center">
+                Evidencija fitnes centara
+       </p>
+        <div style="float:left;position:absolute;top:8px;right:16px;height: 600px; width:1500px" >
+            <p style="color:antiquewhite">Registracija korisnika</p>
+            <form>
+                <table>
+                    <tr>
+                        <td style="color:antiquewhite">Username:</td>
+                        <td>
+                            <input type="text" name="korisnickoime" />
+                        </td>
+                        <td>
+                            <input type="submit" value="Unesi" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:antiquewhite">Password:</td>
+                        <td>
+                            <input type="text" name="lozinka" />
+                        </td>
+                        <td>
+                            <input type="submit" value="Unesi" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="color:antiquewhite">Uloga:</td>
+                        <td>
+                            <input list="uloge" name="uloga" />
+                            <datalist id="uloge">
+                                <option value="POSETILAC"></option>
+                                <option value="TRENER"></option>
+                                <option value="VLASNIK"></option>
+                            </datalist>
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+
+        </div>
+        <div style="float:right">
+            <p style="color:burlywood; font-size:large"> Fitnes centri</p>
+
+            <form style="border:1px solid">
+                <table style="border:1px solid;border-color:antiquewhite">
+                    <tr>
+                        <th>
+                            Naziv
+                        </th>
+                        <th>
+                            Adresa
+                        </th>
+                        <th>
+                            Godina otvaranja
+
+                        </th>
+
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Flex</td>
+                        <td>Sutjeska 2</td>
+                        <td>2014</td>
+                        <td>
+                            <input type="submit" value="Detalji" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Non stop fitnes</td>
+                        <td>Narodnih heroja 1</td>
+                        <td>2011</td>
+                        <td>
+                            <input type="submit" value="Detalji" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Bestfit 24h</td>
+                        <td>Bulevar oslobođenja 13</td>
+                        <td>2010</td>
+                        <td>
+                            <input type="submit" value="Detalji" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div> 
+        <div style="position:absolute;bottom: 10px">
+            <p style="color:antiquewhite">Pretražite fitnes centar po:</p> 
+            <form>
+                <table>
+                    <tr>
+                        <td>Nazivu:</td>
+                        <td>
+                            <input type="text" name="naziv" />
+                        </td>
+                        <td>
+                            <input type="submit" value="Pretraži" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <form>
+                <table>
+                    <tr>
+                        <td>Adresi:</td>
+                        <td>
+                            <input type="text" name="adresa" />
+                        </td>
+                        <td>
+                            <input type="submit" value="Pretraži" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <form>
+                <table>
+                    <tr>
+                        <td>Godini otvaranja:</td>
+                        <td>
+                            <input type="text" name="godinaOtvaranja" />
+                        </td>
+                        <td>
+                            <input type="submit" value="Pretraži" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </body>
+</html>
+
+
 

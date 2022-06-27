@@ -14,7 +14,7 @@ namespace Projekat_WEB.Models
             Grad = grad;
             PostanskiBroj = postanskiBroj;
         }
-
+        public Adresa() { }
         public string Ulica { get; set; }
         public int Broj { get; set; }
         public string Grad { get; set; }
