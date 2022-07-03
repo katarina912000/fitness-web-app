@@ -26,20 +26,16 @@ namespace Projekat_WEB.Models
             CenaJednogTrSaPersonalnimTr = cenaJednogTrSaPersonalnimTr;
         }
 
-        public string Ime { get; set; }
-        //public Adresa Adresa { get; set; }
+        public FitnesCentar(){}
+
+        public string Ime { get; set; }       
         public int GodinaOtvaranja { get; set; }
-        //public Korisnik Vlasnik { get; set; }
         public double CenaMesecneClanarine { get; set; }
         public double CenaGodisnjeClanarine { get; set; }
         public double CenaJednogTreninga { get; set; }
         public double CenaJednogGrupnogTreninga { get; set; }
         public double CenaJednogTrSaPersonalnimTr { get; set; }
-
-
-        //Korisnik kor = new Korisnik();
         
-
 
     }
 }

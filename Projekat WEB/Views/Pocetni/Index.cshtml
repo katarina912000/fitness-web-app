@@ -33,19 +33,13 @@
                         <td style="color:antiquewhite">Username:</td>
                         <td>
                             <input type="text" name="korisnickoime" />
-                        </td>
-                        <td>
-                            <input type="submit" value="Unesi" />
-                        </td>
+                        </td>                      
                     </tr>
                     <tr>
                         <td style="color:antiquewhite">Password:</td>
                         <td>
                             <input type="text" name="lozinka" />
-                        </td>
-                        <td>
-                            <input type="submit" value="Unesi" />
-                        </td>
+                        </td>                       
                     </tr>
                     <tr>
                         <td style="color:antiquewhite">Uloga:</td>
@@ -58,15 +52,20 @@
                             </datalist>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Unesi" />
+                        </td>
+                    </tr>
 
                 </table>
             </form>
 
         </div>
         <div style="float:right">
-            <p style="color:burlywood; font-size:large"> Fitnes centri</p>
+            <p style="color:antiquewhite; font-size:large"> Fitnes centri</p>
 
-            <form style="border:1px solid">
+            <form style="border:1px solid" action="PocetniController/Detalji" method="post">
                 <table style="border:1px solid;border-color:antiquewhite">
                     <tr>
                         <th>
@@ -77,9 +76,7 @@
                         </th>
                         <th>
                             Godina otvaranja
-
                         </th>
-
                         <td></td>
                     </tr>
                     <tr>
@@ -94,17 +91,13 @@
                         <td>Non stop fitnes</td>
                         <td>Narodnih heroja 1</td>
                         <td>2011</td>
-                        <td>
-                            <input type="submit" value="Detalji" />
-                        </td>
+                        
                     </tr>
                     <tr>
                         <td>Bestfit 24h</td>
                         <td>Bulevar oslobođenja 13</td>
                         <td>2010</td>
-                        <td>
-                            <input type="submit" value="Detalji" />
-                        </td>
+                       
                     </tr>
                 </table>
             </form>

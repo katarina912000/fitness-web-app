@@ -7,21 +7,43 @@ namespace Projekat_WEB.Models
 {
     public class Korisnik
     {
-        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, PolEnum.Pol pol, string email, DateTime godinaRodjenja, UlogaEnum.Uloga uloga, List<GrupniTrening> grupniTreninziKorisnikPrijavljen, List<GrupniTrening> grupniTreninziKorisnikTrener, FitnesCentar angazovanTrenerFitnesCentra, FitnesCentar vlasnikFitnesCentra)
+        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, string email, DateTime godinaRodjenja, string uloga, List<string> grupniTreninziKorisnikPrijavljen, List<string> grupniTreninziKorisnikTrener, string angazovanTrenerFitnesCentra, List<string> fitnesCentriVlasnik)
         {
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
             Ime = ime;
             Prezime = prezime;
-            Pol = pol;
+            string po = Pol.ToString();
+            po = pol.ToUpper();
             Email = email;
             GodinaRodjenja = godinaRodjenja;
-            Uloga = uloga;
-            GrupniTreninziKorisnikPrijavljen = grupniTreninziKorisnikPrijavljen;
-            GrupniTreninziKorisnikTrener = grupniTreninziKorisnikTrener;
-            AngazovanTrenerFitnesCentra = angazovanTrenerFitnesCentra;
-            VlasnikFitnesCentra = vlasnikFitnesCentra;
+            string role = Uloga.ToString();
+            role = uloga.ToUpper();
+
+            List<GrupniTrening> gt1 = new List<GrupniTrening>();
+            for (int i = 0; i < grupniTreninziKorisnikPrijavljen.Count; i++)
+            {
+                gt1[i].Naziv = grupniTreninziKorisnikPrijavljen[i];
+            }
+
+            List<GrupniTrening> gt2 = new List<GrupniTrening>();
+            for (int i = 0; i < grupniTreninziKorisnikTrener.Count; i++)
+            {
+                gt2[i].Naziv = grupniTreninziKorisnikTrener[i];
+            }
+
+            FitnesCentar fc = new FitnesCentar();
+            fc.Ime = angazovanTrenerFitnesCentra;
+
+            List<FitnesCentar> centri = new List<FitnesCentar>();
+            for(int i = 0; i < fitnesCentriVlasnik.Count; i++)
+            {
+                centri[i].Ime = fitnesCentriVlasnik[i];
+            }
+
         }
+
+            
         public Korisnik() { }
         public  string KorisnickoIme { get; set; }
         public string Lozinka { get; set; }
@@ -31,10 +53,8 @@ namespace Projekat_WEB.Models
         public string Email { get; set; }
         public DateTime GodinaRodjenja { get; set; }
         public UlogaEnum.Uloga Uloga { get; set; }
-        public List<GrupniTrening> GrupniTreninziKorisnikPrijavljen { get; set; }
-        public List<GrupniTrening> GrupniTreninziKorisnikTrener { get; set; }
-        public FitnesCentar AngazovanTrenerFitnesCentra { get; set; }
-        public FitnesCentar VlasnikFitnesCentra { get; set; }
+        
+       
         
     }
 }
