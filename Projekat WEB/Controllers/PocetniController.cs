@@ -12,20 +12,38 @@ namespace Projekat_WEB.Controllers
         // GET: Pocetni
         public ActionResult Index()
         {
+
+            string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/FitnesCentri.txt"));
+            string[] lines = text.Split('\n');//tu su sad 3 stringa 3 linije
+
+            ViewBag.Line = lines;
+            int numOfLines = lines.ToList().Count;//broj 3
+            ViewBag.Lines = numOfLines;
+         
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult DodajKorisnika(string korisnickoime,string lozinka,string uloga)
-        //{
+        
 
-        //    return View("Index");
-        //}
-
+        
         [HttpPost]
         public ActionResult Detalji()
         {
             //Write();
+            string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/FitnesCentri.txt"));
+            string[] lines = text.Split('\n');//tu su sad 3 stringa 3 linije
+
+            ViewBag.Data = lines;
+
+            //string[] text = System.IO.File.ReadAllLines(Server.MapPath("~/App_Data/FitnesCentri.txt"));
+            //string[] realText = null;
+            //for(int i = 0; i < text.ToList().Count; i++)
+            //{
+            //    realText = text[i].Split(';');
+            //    ViewBag.Data = realText;
+            //}
+
+            
             return View("Detalji");
         }
 

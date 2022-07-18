@@ -25,48 +25,10 @@
                 text-align:center">
                 Evidencija fitnes centara
        </p>
-        <div style="float:left;position:absolute;top:8px;right:16px;height: 600px; width:1500px" >
-            <p style="color:antiquewhite">Registracija korisnika</p>
-            <form>
-                <table>
-                    <tr>
-                        <td style="color:antiquewhite">Username:</td>
-                        <td>
-                            <input type="text" name="korisnickoime" />
-                        </td>                      
-                    </tr>
-                    <tr>
-                        <td style="color:antiquewhite">Password:</td>
-                        <td>
-                            <input type="text" name="lozinka" />
-                        </td>                       
-                    </tr>
-                    <tr>
-                        <td style="color:antiquewhite">Uloga:</td>
-                        <td>
-                            <input list="uloge" name="uloga" />
-                            <datalist id="uloge">
-                                <option value="POSETILAC"></option>
-                                <option value="TRENER"></option>
-                                <option value="VLASNIK"></option>
-                            </datalist>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Unesi" />
-                        </td>
-                    </tr>
-
-                </table>
-            </form>
-
-        </div>
+       
         <div style="float:right">
-            <p style="color:antiquewhite; font-size:large"> Fitnes centri</p>
-
-            <form style="border:1px solid" action="PocetniController/Detalji" method="post">
-                <table style="border:1px solid;border-color:antiquewhite">
+            <form action="~/Pocetni/Detalji" method="post">
+                <table>
                     <tr>
                         <th>
                             Naziv
@@ -79,71 +41,35 @@
                         </th>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td>Flex</td>
-                        <td>Sutjeska 2</td>
-                        <td>2014</td>
-                        <td>
-                            <input type="submit" value="Detalji" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Non stop fitnes</td>
-                        <td>Narodnih heroja 1</td>
-                        <td>2011</td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Bestfit 24h</td>
-                        <td>Bulevar oslobođenja 13</td>
-                        <td>2010</td>
-                       
-                    </tr>
-                </table>
-            </form>
-        </div> 
-        <div style="position:absolute;bottom: 10px">
-            <p style="color:antiquewhite">Pretražite fitnes centar po:</p> 
-            <form>
-                <table>
-                    <tr>
-                        <td>Nazivu:</td>
-                        <td>
-                            <input type="text" name="naziv" />
-                        </td>
-                        <td>
-                            <input type="submit" value="Pretraži" />
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <form>
-                <table>
-                    <tr>
-                        <td>Adresi:</td>
-                        <td>
-                            <input type="text" name="adresa" />
-                        </td>
-                        <td>
-                            <input type="submit" value="Pretraži" />
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <form>
-                <table>
-                    <tr>
-                        <td>Godini otvaranja:</td>
-                        <td>
-                            <input type="text" name="godinaOtvaranja" />
-                        </td>
-                        <td>
-                            <input type="submit" value="Pretraži" />
-                        </td>
-                    </tr>
-                </table>
+                    @for (int i = 0; i < ViewBag.Lines; i++)
+                    {
+
+                        string oneLine = ViewBag.Line[i];
+                        string[] konacno = oneLine.Split(';');
+                        <tr>
+           
+                                <td>
+                                    @konacno[0]
+                                </td>
+                                <td>
+                                    @konacno[1],@konacno[2],@konacno[3]
+                                </td>
+                                <td>
+                                    @konacno[5]
+                                </td>
+
+                            <td>
+                                <input type="submit" value="Detalji" />
+                            </td>
+                        </tr>
+
+                    }
+
+            </table>
             </form>
         </div>
+      
+       
     </body>
 </html>
 

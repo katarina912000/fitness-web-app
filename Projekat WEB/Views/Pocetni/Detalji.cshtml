@@ -1,92 +1,25 @@
 ﻿
 
-<h2>Detalji</h2>
+<h2>Detalji fitnes centra: </h2>
+
 <form>
-    <table>
-        <tr>
-            <td>
-                Naziv fitnes centra:
-            </td>
-            <td>
-                FLEX
-            </td>
-            
-        </tr>
-        <tr>
-            <td>
-                Adresa:
-            </td>
-            <td>
-                Sutjeska 2 Novi Sad 21000
-            </td>
+    <table>   
+        
+        @for(int i=0; i<13; i++)
+        {
+            string oneLine = ViewBag.Data[0];
+            string[] konacno = oneLine.Split(';');
+            <tr>
+                <td>
+                    @konacno[i]
+                </td>
+            </tr>
 
-        </tr>
+        }      
         <tr>
             <td>
-               Godina otvaranja
-            </td>
-            <td>
-                2014
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-               Vlasnik:
-            </td>
-            <td>
-                Milan Maric
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                Cena mesecne clanarine
-            </td>
-            <td>
-                2.500,00
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                Cena godisnje clanarine
-            </td>
-            <td>
-                12.000,00
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                Cena 1 treninga
-            </td>
-            <td>
-                500,00
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                Cena 1 grupnog treninga
-            </td>
-            <td>
-                300,00
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                Cena 1 treninga sa personalnim tr
-            </td>
-            <td>
-                1.500,00
-            </td>
-
-        </tr>
-        <tr>
-            <td>
-                <a href="~/Views/Pocetni/Index.cshtml">Povratak na pocetnu stranicu</a>
+                <p>
+                Povratak na<a href="~/Pocetni/Index"> pocetnu stranicu</a></p>
             </td>
         </tr>
     </table>
