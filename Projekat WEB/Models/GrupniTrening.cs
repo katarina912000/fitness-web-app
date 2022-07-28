@@ -7,8 +7,10 @@ namespace Projekat_WEB.Models
 {
     public class GrupniTrening
     {
-        public GrupniTrening(string naziv, string tipTreninga, string fitnesCentar, int trajanjeTreninga, DateTime datumIVremeTreninga, int maxBrojPosetilaca, List<string> korisnici)
+        public GrupniTrening(string naziv, int id, string tipTreninga, string fitnesCentar, int trajanjeTreninga, DateTime datumIVremeTreninga, int maxBrojPosetilaca, List<string> korisnici)
         {
+            Id = id;
+
             Naziv = naziv;
             string tipTr = TipTreninga.ToString();
             tipTr = tipTreninga.ToUpper();
@@ -27,6 +29,7 @@ namespace Projekat_WEB.Models
 
         public GrupniTrening() { }
 
+        public int Id { get; set; }
         public string Naziv { get; set; }
         public TipTreningaEnum.TipTreninga TipTreninga { get; set; }        
         public int TrajanjeTreninga { get; set; }

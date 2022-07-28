@@ -7,8 +7,10 @@ namespace Projekat_WEB.Models
 {
     public class Korisnik
     {
-        public Korisnik(string korisnickoIme, string lozinka, string ime, string prezime, string pol, string email, DateTime godinaRodjenja, string uloga, List<string> grupniTreninziKorisnikPrijavljen, List<string> grupniTreninziKorisnikTrener, string angazovanTrenerFitnesCentra, List<string> fitnesCentriVlasnik)
+        public Korisnik(int id,string korisnickoIme, string lozinka, string ime, string prezime, string pol, string email, DateTime godinaRodjenja, string uloga, List<string> grupniTreninziKorisnikPrijavljen, List<string> grupniTreninziKorisnikTrener, string angazovanTrenerFitnesCentra, List<string> fitnesCentriVlasnik)
         {
+            Id = id;
+
             KorisnickoIme = korisnickoIme;
             Lozinka = lozinka;
             Ime = ime;
@@ -45,6 +47,8 @@ namespace Projekat_WEB.Models
 
             
         public Korisnik() { }
+
+        public int Id { get; set; }
         public  string KorisnickoIme { get; set; }
         public string Lozinka { get; set; }
         public string Ime { get; set; }

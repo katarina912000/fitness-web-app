@@ -1,28 +1,91 @@
 ﻿
+@{
+    Layout = null;
+}
+<head>
+    <style>
+        #gradient {
+          
+          max-width: 100%;
+          max-height: 100%;
+          background-color: gray; 
+          color: white;
+          background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+    </style>
+   
+</head>
+<body id="gradient">
+    
+        <h2>Detalji fitnes centra: @ViewBag.Data.Ime</h2>
+        <form >
+            <table >
+                <tr>
+                    <td>
+                        Id: @ViewBag.Data.Id
 
-<h2>Detalji fitnes centra: </h2>
+                    </td>
 
-<form>
-    <table>   
-        
-        @for(int i=0; i<13; i++)
-        {
-            string oneLine = ViewBag.Data[0];
-            string[] konacno = oneLine.Split(';');
-            <tr>
-                <td>
-                    @konacno[i]
-                </td>
-            </tr>
+                </tr>
+                <tr>
+                    <td>
+                        Adresa: @ViewBag.Data.NazivUlice @ViewBag.Data.BrojAdr, @ViewBag.Data.Mesto @ViewBag.Data.PostBr
 
-        }      
-        <tr>
-            <td>
-                <p>
-                Povratak na<a href="~/Pocetni/Index"> pocetnu stranicu</a></p>
-            </td>
-        </tr>
-    </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Vlasnik fitnes centra - @ViewBag.Data.Ime: @ViewBag.Data.ImeVl @ViewBag.Data.Prz
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Godina otvaranja: @ViewBag.Data.GodinaOtvaranja
 
-</form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cena mesecne clanarine: @ViewBag.Data.CenaMesecneClanarine,00
 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cena godisnje clanarine: @ViewBag.Data.CenaGodisnjeClanarine,00
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cena jednog treninga: @ViewBag.Data.CenaJednogTreninga,00
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cena jednog grupnog treninga: @ViewBag.Data.CenaJednogGrupnogTreninga,00
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cena jednog treninga sa personalnim trenerom: @ViewBag.Data.CenaJednogTrSaPersonalnimTr,00
+
+                    </td>
+                </tr>
+                <tr></tr>
+                <tr>
+                    <td>
+                        <p>
+                            Povratak na<a href="~/Pocetni/Index"> pocetnu stranicu</a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+
+        </form>
+
+   
+</body>

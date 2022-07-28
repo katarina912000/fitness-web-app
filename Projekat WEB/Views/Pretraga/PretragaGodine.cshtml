@@ -1,0 +1,113 @@
+﻿@{
+    Layout = null;
+}
+@using Projekat_WEB.Models
+@model IEnumerable<FitnesCentar>
+
+<head>
+    <style>
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+    </style>
+
+</head>
+<body id="gradient">
+    <h2>Pronadjeni fitnes centri po godini otvaranja:</h2>
+    @{
+        if (ViewBag.Message == null)
+        {
+            if (ViewBag.Nadjeni != null)
+            {
+                
+                    foreach (var fc in ViewBag.Nadjeni)
+                    {
+                       <h2>Ime fitnes centra: @fc.Ime</h2>
+                       
+                            <table>
+                                <tr>
+                                    <td>
+                                        Id: @fc.Id
+
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Adresa: @fc.NazivUlice @fc.BrojAdr, @fc.Mesto @fc.PostBr
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Vlasnik fitnes centra - @fc.Ime: @fc.ImeVl @fc.Prz
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Godina otvaranja: @fc.GodinaOtvaranja
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Cena mesecne clanarine: @fc.CenaMesecneClanarine,00
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Cena godisnje clanarine: @fc.CenaGodisnjeClanarine,00
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Cena jednog treninga: @fc.CenaJednogTreninga,00
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Cena jednog grupnog treninga: @fc.CenaJednogGrupnogTreninga,00
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Cena jednog treninga sa personalnim trenerom: @fc.CenaJednogTrSaPersonalnimTr,00
+
+                                    </td>
+                                </tr>
+                            </table>
+                        
+                    }
+
+
+                <a href="~/Pocetni/Index">Pocetna stranica</a>
+
+            }
+            else
+            {
+                <p>
+                    Nema fitnes centra stvorenog izmedju tih godina.
+                    Probaj <a href="~/Pocetni/Index">opet</a>
+
+                </p>
+
+            }
+        }
+        else
+        {
+            <p>@ViewBag.Message  Probaj <a href="~/Pocetni/Index">opet</a></p>
+        }
+
+    }
+
+</body>
+
+

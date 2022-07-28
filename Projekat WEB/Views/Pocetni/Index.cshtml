@@ -1,6 +1,9 @@
 ﻿@{ 
     Layout = null;
 }
+@using Projekat_WEB.Models
+@model IEnumerable<FitnesCentar>
+
 <html>
     <head>
         <style>
@@ -15,7 +18,6 @@
                 color: antiquewhite;
             }
             
-
         </style>
     </head>
     <body style="background-image:url(../../Content/Slike/fitnes1.jpg); max-width:100%; height:auto; ">
@@ -27,7 +29,7 @@
        </p>
        
         <div style="float:right">
-            <form action="~/Pocetni/Detalji" method="post">
+            
                 <table>
                     <tr>
                         <th>
@@ -41,35 +43,116 @@
                         </th>
                         <td></td>
                     </tr>
-                    @for (int i = 0; i < ViewBag.Lines; i++)
+                    @foreach(var item in Model)
                     {
-
-                        string oneLine = ViewBag.Line[i];
-                        string[] konacno = oneLine.Split(';');
                         <tr>
-           
                                 <td>
-                                    @konacno[0]
+                                    @item.Ime
                                 </td>
                                 <td>
-                                    @konacno[1],@konacno[2],@konacno[3]
+                                    @item.NazivUlice @item.BrojAdr,@item.Mesto
                                 </td>
                                 <td>
-                                    @konacno[5]
-                                </td>
-
+                                    @item.GodinaOtvaranja
+                                </td>                          
                             <td>
-                                <input type="submit" value="Detalji" />
-                            </td>
+                                <form action="~/Pocetni/Detalji" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <input type="submit" value="Detalji" name="" />
+                                </form>                               
+                            </td>                          
                         </tr>
-
+                        
                     }
 
             </table>
-            </form>
+           
         </div>
       
-       
+        <div style="position:absolute;bottom: 10px">
+            <p style="color:antiquewhite">Pretražite fitnes centar po:</p>
+            <form action="~/Pretraga/PretragaNaziv" method="post">
+                <table>
+                    <tr>
+                        <td>Nazivu:</td>
+                        <td>
+                            <input type="text" name="ime" />
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Pretraži" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <form action="~/Pretraga/PretragaAdresa" method="post">
+                <table>
+                    <tr>
+                        <td>Adresi:</td>
+                        <tr>
+                            <td>
+                                Ulica:
+                            </td>
+                            <td>
+                                <input type="text" name="ulica" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Broj ulice:
+                            </td>
+                            <td>
+                                <input type="text" name="brojUlice" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Mesto:</td>
+                            <td>
+                                <input type="text" name="mesto" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="submit" value="Pretraži" />
+                            </td>
+                        </tr>
+                   
+                    
+                    
+                </table>
+            </form>
+            <form action="~/Pretraga/PretragaGodine" method="post">
+                <table>
+                    <tr>
+                        <td>
+                            Godina-od:
+                        </td>
+                        <td>
+                            <input type="text" name="godMin" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Godina-do:
+                        </td>
+
+                        <td>
+                            <input type="text" name="godMaks" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Pretraži" />
+                        </td>
+                    </tr>
+                </table>
+               
+            </form>
+           
+        </div>
     </body>
 </html>
 

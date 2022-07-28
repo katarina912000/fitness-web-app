@@ -7,8 +7,10 @@ namespace Projekat_WEB.Models
 {
     public class Komentar
     {
-        public Komentar(string posetilacKojiKomentarise, string fitnesCentarKomentar, string tekstKomentara, int ocena)
+        public Komentar(int id,string posetilacKojiKomentarise, string fitnesCentarKomentar, string tekstKomentara, int ocena)
         {
+            Id = id;
+
             Korisnik k = new Korisnik();
             k.KorisnickoIme = posetilacKojiKomentarise;
             FitnesCentar fc = new FitnesCentar();
@@ -17,7 +19,7 @@ namespace Projekat_WEB.Models
             Ocena = ocena;
         }
 
-       
+        public int Id { get; set; }
         public string TekstKomentara { get; set; }
         public int Ocena { get; set; }
     }
