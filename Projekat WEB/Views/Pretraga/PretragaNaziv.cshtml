@@ -2,6 +2,8 @@
 @{
     Layout = null;
 }
+@using Projekat_WEB.Models;
+@model IEnumerable<FitnesCentar>
 <head>
     <style>
         #gradient {
@@ -20,9 +22,9 @@
     @if (ViewBag.Message == null)
     {
         if (ViewBag.Data != null)
-        {
-            <h1>Pronadjen je @ViewBag.Data.Ime po imenu</h1>
-            <h2>Detalji fitnes centra: @ViewBag.Data.Ime</h2>
+        {//naziv
+
+            <h2>Ime fitnes centra: @ViewBag.Data.Ime</h2>
             <form>
                 <table>
                     <tr>
@@ -94,17 +96,162 @@
 
 
         }
+
+
+        if (ViewBag.Nadjeni != null)
+        {
+            //godine
+            foreach (var fc in ViewBag.Nadjeni)
+            {
+                if (ViewBag.Data != fc)
+                {
+                        <h2>Ime fitnes centra: @fc.Ime</h2>
+
+                        <table>
+                            <tr>
+                                <td>
+                                    Id: @fc.Id
+
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    Adresa: @fc.NazivUlice @fc.BrojAdr, @fc.Mesto @fc.PostBr
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Vlasnik fitnes centra - @fc.Ime: @fc.ImeVl @fc.Prz
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Godina otvaranja: @fc.GodinaOtvaranja
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cena mesecne clanarine: @fc.CenaMesecneClanarine,00
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cena godisnje clanarine: @fc.CenaGodisnjeClanarine,00
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cena jednog treninga: @fc.CenaJednogTreninga,00
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cena jednog grupnog treninga: @fc.CenaJednogGrupnogTreninga,00
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Cena jednog treninga sa personalnim trenerom: @fc.CenaJednogTrSaPersonalnimTr,00
+
+                                </td>
+                            </tr>
+                        </table>
+
+                }
+
+            }
+
+
+                <a href="~/Pocetni/Index">Pocetna stranica</a>
+
+        }
+        if (ViewBag.AdresaNadjen != null)
+        {
+            //adresa
+            <h2>Ime fitnes centra: @ViewBag.AdresaNadjen.Ime</h2>
+                <form>
+                    <table>
+                        <tr>
+                            <td>
+                                Id: @ViewBag.AdresaNadjen.Id
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Adresa: @ViewBag.AdresaNadjen.NazivUlice @ViewBag.AdresaNadjen.BrojAdr, @ViewBag.AdresaNadjen.Mesto @ViewBag.AdresaNadjen.PostBr
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Vlasnik fitnes centra - @ViewBag.AdresaNadjen.Ime: @ViewBag.AdresaNadjen.ImeVl @ViewBag.AdresaNadjen.Prz
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Godina otvaranja: @ViewBag.AdresaNadjen.GodinaOtvaranja
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cena mesecne clanarine: @ViewBag.AdresaNadjen.CenaMesecneClanarine,00
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cena godisnje clanarine: @ViewBag.AdresaNadjen.CenaGodisnjeClanarine,00
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cena jednog treninga: @ViewBag.AdresaNadjen.CenaJednogTreninga,00
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cena jednog grupnog treninga: @ViewBag.AdresaNadjen.CenaJednogGrupnogTreninga,00
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cena jednog treninga sa personalnim trenerom: @ViewBag.AdresaNadjen.CenaJednogTrSaPersonalnimTr,00
+
+                            </td>
+                        </tr>
+                        <tr></tr>
+                        <tr>
+                            <td>
+                                <p>
+                                    Povratak na<a href="~/Pocetni/Index"> pocetnu stranicu</a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </form>
+        }
+
         else
         {
-            <p>
-                Nije pronadjen fitnes centar, probaj <a href="~/Pocetni/Index">opet</a>
-            </p>
+            <h2>
+                Probaj <a href="~/Pocetni/Index">opet</a>
+            </h2>
         }
-    }else
-    {
-        <h2>
-            @ViewBag.Message, probaj <a href="~/Pocetni/Index">opet</a>
-        </h2>
     }
 
 

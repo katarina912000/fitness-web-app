@@ -17,6 +17,8 @@ namespace Projekat_WEB
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             HttpContext.Current.Application["fitnesCentri"] = new List<FitnesCentar>();
+            HttpContext.Current.Application["grupniTreninzi"] = new List<GrupniTrening>();
+            HttpContext.Current.Application["korisnici"] = new List<Korisnik>();
 
         }
     }

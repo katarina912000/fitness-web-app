@@ -152,6 +152,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PocetniController.cs" />
     <Compile Include="Controllers\PretragaController.cs" />
+    <Compile Include="Controllers\RegistracijaController.cs" />
+    <Compile Include="Controllers\SortiranjaController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -168,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\FitnesCentri.txt" />
+    <Content Include="App_Data\GrupniTreninzi.txt" />
+    <Content Include="App_Data\Korisnici.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Slike\fitnes1.jpg" />
@@ -214,9 +218,13 @@
     <Content Include="Views\Pocetni\Detalji.cshtml" />
     <Content Include="Views\Pretraga\PretragaNaziv.cshtml" />
     <Content Include="Views\Pretraga\PretragaGodine.cshtml" />
+    <Content Include="Views\Registracija\Add.cshtml" />
+    <Content Include="Views\Registracija\Index.cshtml" />
+    <Content Include="Views\Registracija\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\New\" />
+    <Folder Include="Views\Sortiranja\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>

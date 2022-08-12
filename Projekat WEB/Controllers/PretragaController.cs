@@ -16,7 +16,25 @@ namespace Projekat_WEB.Controllers
         }
 
         [HttpPost]
-        public ActionResult PretragaNaziv(string ime)
+        public ActionResult PretragaKombinovano(string ime, string ulica, string brojUlice, string mesto, string godMin, string godMaks)
+        {
+            if (ime != "")
+            {
+                PretragaNaziv(ime);
+            }
+            if (ulica != "" && mesto!="" && brojUlice!="")
+            {
+                PretragaAdresa(ulica, brojUlice, mesto);
+            }
+            if (godMin != "" && godMaks != "")
+            {
+                PretragaGodine(godMin, godMaks);
+                
+            }
+            return View("PretragaNaziv");
+        }
+        
+        public void PretragaNaziv(string ime)
         {
             List<FitnesCentar> fitnesCentri = (List<FitnesCentar>)HttpContext.Application["fitnesCentri"];
             FitnesCentar nadjen = new FitnesCentar();
@@ -35,10 +53,10 @@ namespace Projekat_WEB.Controllers
                    
                 }
             }
-            return View();
+           
         }
-        [HttpPost]
-        public ActionResult PretragaAdresa(string ulica,string brojUlice,string mesto)
+        
+        public void PretragaAdresa(string ulica,string brojUlice,string mesto)
         {
             List<FitnesCentar> fCentri = (List<FitnesCentar>)HttpContext.Application["fitnesCentri"];
             FitnesCentar nadjen = new FitnesCentar();
@@ -54,7 +72,7 @@ namespace Projekat_WEB.Controllers
                     if(maloUlicaFC.Equals(maloUlica) && maloMestoFC.Equals(maloMesto) && fCentar.BrojAdr == broj)
                     {
                         nadjen = fCentar;
-                        ViewBag.Data = nadjen;
+                        ViewBag.AdresaNadjen = nadjen;
                         break;
                     }
                     else
@@ -67,43 +85,49 @@ namespace Projekat_WEB.Controllers
             {
                 ViewBag.Message = "Nisu dobro uneseni podaci";
             }
-            return View("PretragaNaziv");
+           
         }
 
-        [HttpPost]
-        public ActionResult PretragaGodine(string godMin,string godMaks)
+       
+        public void PretragaGodine(string godMin,string godMaks)
         {
             List<FitnesCentar> fCentri = (List<FitnesCentar>)HttpContext.Application["fitnesCentri"];
             List<FitnesCentar> nadjeni = new List<FitnesCentar>();
-            if(godMin!="" && godMaks != "")
-            {
+           
                 int minGod, maksGod;
                 bool min = Int32.TryParse(godMin, out minGod);
                 bool maks = Int32.TryParse(godMaks, out maksGod);
 
                 if (min && maks)
                 {
-                    foreach(FitnesCentar fc in fCentri)
+                    if(minGod >= 1990 && maksGod <= 2022)
                     {
-                        if(fc.GodinaOtvaranja>minGod && fc.GodinaOtvaranja < maksGod)
-                        {
-                            nadjeni.Add(fc);
-                            ViewBag.Nadjeni = nadjeni;
-                            
-                        }
-                        else
-                        {
+                        foreach (FitnesCentar fc in fCentri)
+                        {                           
+                                if (fc.GodinaOtvaranja > minGod && fc.GodinaOtvaranja < maksGod)
+                                {
+                                    nadjeni.Add(fc);
+                                    ViewBag.Nadjeni = nadjeni;
+                                }
+                                else
+                                {
 
+                                }
                         }
                     }
+                    else
+                    {
+                        ViewBag.Message = "Minimalna godina moze biti od 1990 a maksimalna do 2022.";
+                    }
+                    
                 }
                 else
                 {
-                    ViewBag.Message = "Niste uneli broj";
+                    ViewBag.Message = "Niste uneli broj.";
                 }
-            }
+            
            
-            return View();
+            
         }
     }
 }

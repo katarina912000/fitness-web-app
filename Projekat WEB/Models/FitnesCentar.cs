@@ -36,6 +36,8 @@ namespace Projekat_WEB.Models
             k.Prezime = prz;
             Prz = prz;
 
+            k.KorisnickoIme = ImeVl + prz;
+            KorisnickoImeVlasnika = k.KorisnickoIme;
             CenaMesecneClanarine = cenaMesecneClanarine;
             CenaGodisnjeClanarine = cenaGodisnjeClanarine;
             CenaJednogTreninga = cenaJednogTreninga;
@@ -45,6 +47,7 @@ namespace Projekat_WEB.Models
 
         public FitnesCentar(){}
 
+        public string KorisnickoImeVlasnika { get; set; }
         public int Id { get; set; }
         public string Ime { get; set; }
         public string NazivUlice { get; set; } 

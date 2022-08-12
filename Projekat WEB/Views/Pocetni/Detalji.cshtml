@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+
 <head>
     <style>
         #gradient {
@@ -11,6 +12,13 @@
           background-color: gray; 
           color: white;
           background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+        table,th,td{
+            border:1px solid;
+            border-color:antiquewhite;
+        }
+        table{
+            border-collapse:collapse;
         }
     </style>
    
@@ -75,16 +83,70 @@
                     </td>
                 </tr>
                 <tr></tr>
-                <tr>
-                    <td>
-                        <p>
-                            Povratak na<a href="~/Pocetni/Index"> pocetnu stranicu</a>
-                        </p>
-                    </td>
-                </tr>
+               
             </table>
+            <h4>Spisak predstojecih grupnih treninga:</h4>
+            <table>
+                <tr>
+                    <th>Naziv i mesto:</th>
+                    <th> Datum i vreme:</th>
+                    <th> Tip treninga: </th>
+                    <th>
+                        Maksimalan broj posetilaca:
+                    </th>
+                    @if (ViewBag.Count != 0)
+                    {
+                        <th>Ukupan broj prijavljenih posetilaca na taj trening:</th>
+                    }
+                  
+
+                </tr>
+                @{
+                    foreach (var item in ViewBag.GrupniTr)
+                    {
+                        
+                        <tr>
+                            <td>@item.Naziv @item.Id se odrzava u @item.FitnesCent</td>
+                            
+                            <td>@item.DatumIVremeTreninga.ToString("dd / MM / yyyy HH: mm")</td>
 
 
+                            <td>@item.TipTreninga</td>
+                           
+                            <td>@item.MaxBrojPosetilaca</td>
+                            @{
+                                int count = 0;
+                                foreach(var k in ViewBag.Lista)
+                                {
+                                    if (k.GrupniTreninziKorisnikPrijavljen != null)
+                                    {
+                                        for (int i = 0; i < k.GrupniTreninziKorisnikPrijavljen.Count; i++)
+                                        {
+                                            if (k.GrupniTreninziKorisnikPrijavljen[i] == item.Id)
+                                            {
+                                                count++;
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+                           
+                            <td>@count</td>
+                                
+                            
+                            
+                        </tr>
+                    }
+                    //fali jos ispis za posetioce koji su tu
+                }
+
+            </table>
+            <h4>
+                Povratak na<a href="~/Pocetni/Index"> pocetnu stranicu</a>
+            </h4>
         </form>
 
    

@@ -17,6 +17,12 @@
                 border-color: antiquewhite;
                 color: antiquewhite;
             }
+            input[type=submit]{
+                background-color:antiquewhite;
+                color: black;
+
+            }
+            
             
         </style>
     </head>
@@ -27,6 +33,100 @@
                 text-align:center">
                 Evidencija fitnes centara
        </p>
+        @{ 
+            if (Session["logedIn"] != null)
+            {
+                <p style="color:antiquewhite">Korisnik je ulogovan!</p>
+                <form action="~/Registracija/LogOut" method="post">
+                    <input type="submit" value="Odjavi se"/>
+                </form>
+            }
+            else
+            {
+                <div style="float:left">
+                    <p style="color:antiquewhite">Registracija korisnika</p>
+                    <form action="~/Registracija/Add" method="post">
+                        <table>
+                            <tr>
+                                <td style="color:antiquewhite">Username:</td>
+                                <td>
+                                    <input type="text" name="korisnickoime" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color:antiquewhite">Password:</td>
+                                <td>
+                                    <input type="password" name="lozinka" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color:antiquewhite">Ime:</td>
+                                <td>
+                                    <input type="text" name="ime" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color:antiquewhite">Prezime:</td>
+                                <td>
+                                    <input type="text" name="prezime" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color:antiquewhite">Pol:</td>
+                                <td>
+                                    <input list="pol" name="pol" />
+                                    <datalist id="pol">
+                                        <option value="ZENSKO"></option>
+                                        <option value="MUSKO"></option>
+                                    </datalist>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color:antiquewhite">Email:</td>
+                                <td>
+                                    <input type="text" name="email" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color:antiquewhite">Datum rodjenja:</td>
+                                <td>
+                                    <input type="date" name="godinaRodjenja"
+                                           min="1970-01-01" max="2022-12-31">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="text-align:center" ; colspan="2">
+                                    <input type="submit" value="Registruj se" />
+                                </td>
+                            </tr>
+
+                        </table>
+                    </form>
+
+                </div>
+                <div style="float:left">
+                    <p style="color:antiquewhite">Logovanje korisnika</p>
+                    <form action="~/Registracija/Login" method="post">
+                        <table>
+                            <tr>
+                                <td>Korisnicko ime:</td>
+                                <td><input type="text" name="korisnickoIme" /></td>
+                            </tr>
+                            <tr>
+                                <td>Lozinka:</td>
+                                <td><input type="password" name="lozinka" /></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:center" ; colspan="2"><input type="submit" value="Prijavi se" /></td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+            }
+        }
+        
+        
        
         <div style="float:right">
             
@@ -55,23 +155,64 @@
                                 <td>
                                     @item.GodinaOtvaranja
                                 </td>                          
-                            <td>
-                                <form action="~/Pocetni/Detalji" method="post">
-                                    <input type="hidden" name="id" value="@item.Id" />
-                                    <input type="submit" value="Detalji" name="" />
-                                </form>                               
-                            </td>                          
+                                <td>
+                                    <form action="~/Pocetni/Detalji" method="post">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <input type="submit" value="Detalji" name="" />
+                                    </form>                               
+                                </td>                          
                         </tr>
                         
                     }
 
             </table>
-           
+            <div style="text-align:right">
+
+
+                <h4 style="color:antiquewhite">Sortiraj:</h4>
+                <form action="~/Sortiranja/OpadajuceNaziv" method="post">
+
+                   
+                                <input type="submit" value="opadajuce - naziv" />
+                           
+                </form>
+                <form action="~/Sortiranja/OpadajuceAdrese" method="post">
+
+                    
+                                <input type="submit" value="opadajuce - adresa" />
+                           
+                </form>
+                <form action="~/Sortiranja/OpadajuceGodine" method="post">
+
+                   
+                                <input type="submit" value="opadajuce - godine" />
+                          
+                  
+                </form>
+                <form  action="~/Sortiranja/RastuceNaziv" method="post">
+
+                  
+                                <input type="submit" value="rastuce - naziv" />
+                         
+                </form>
+                <form action="~/Sortiranja/RastuceAdrese" method="post">
+
+                   
+                                <input type="submit" value="rastuce - adresa" />
+                           
+                </form>
+                <form action="~/Sortiranja/RastuceGodine" method="post" >
+
+                  
+                                <input type="submit" value="rastuce - godine" />
+                          
+                </form>
+            </div>
         </div>
       
         <div style="position:absolute;bottom: 10px">
             <p style="color:antiquewhite">Pretražite fitnes centar po:</p>
-            <form action="~/Pretraga/PretragaNaziv" method="post">
+            <form action="~/Pretraga/PretragaKombinovano" method="post">
                 <table>
                     <tr>
                         <td>Nazivu:</td>
@@ -80,15 +221,6 @@
                         </td>
                         
                     </tr>
-                    <tr>
-                        <td>
-                            <input type="submit" value="Pretraži" />
-                        </td>
-                    </tr>
-                </table>
-            </form>
-            <form action="~/Pretraga/PretragaAdresa" method="post">
-                <table>
                     <tr>
                         <td>Adresi:</td>
                         <tr>
@@ -106,6 +238,7 @@
                             <td>
                                 <input type="text" name="brojUlice" />
                             </td>
+                            
                         </tr>
                         <tr>
                             <td>Mesto:</td>
@@ -114,18 +247,7 @@
 
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <input type="submit" value="Pretraži" />
-                            </td>
-                        </tr>
-                   
-                    
-                    
-                </table>
-            </form>
-            <form action="~/Pretraga/PretragaGodine" method="post">
-                <table>
+               
                     <tr>
                         <td>
                             Godina-od:
@@ -144,7 +266,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td  style="text-align:center"; colspan="2">
                             <input type="submit" value="Pretraži" />
                         </td>
                     </tr>

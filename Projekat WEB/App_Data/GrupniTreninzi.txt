@@ -1,0 +1,4 @@
+﻿Grupni trening;1;yoga;FLEX;45;09/11/2022 18:00;35;6
+Grupni trening;2;body pump;Non Stop Fitnes;45;11/11/2022 19:00;40;4
+Grupni trening;3;yoga;Bestfit 24h;60;15/11/2022 20:00;45;8,9
+Grupni trening;4;les mills tone;FLEX;65;19/11/2022 19:00;30;6
