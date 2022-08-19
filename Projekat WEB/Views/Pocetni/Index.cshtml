@@ -36,10 +36,23 @@
         @{ 
             if (Session["logedIn"] != null)
             {
+                Korisnik k = (Korisnik)Session["logedIn"];
                 <p style="color:antiquewhite">Korisnik je ulogovan!</p>
-                <form action="~/Registracija/LogOut" method="post">
-                    <input type="submit" value="Odjavi se"/>
+                <form action="~/Pocetni/Edit" method="post">
+                    <input type="submit" value="Uredi i pregledaj svoj profil"/>
                 </form>
+                if(k.Uloga == UlogaEnum.Uloga.POSETILAC)
+                {
+                    <form method="post" action="~/Posetilac/IstorijaTreninga">
+                        <input type="submit" value="Istorija prijavljenih treninga" />
+                    </form>
+                }
+
+                <form action="~/Registracija/LogOut" method="post">
+                    <input type="submit" value="Odjavi se" />
+                </form>
+
+
             }
             else
             {

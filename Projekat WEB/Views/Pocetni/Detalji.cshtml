@@ -2,6 +2,8 @@
 @{
     Layout = null;
 }
+@using Projekat_WEB.Models
+@model IEnumerable<GrupniTrening>
 
 <head>
     <style>
@@ -26,7 +28,7 @@
 <body id="gradient">
     
         <h2>Detalji fitnes centra: @ViewBag.Data.Ime</h2>
-        <form >
+        
             <table >
                 <tr>
                     <td>
@@ -86,68 +88,154 @@
                
             </table>
             <h4>Spisak predstojecih grupnih treninga:</h4>
-            <table>
+    <table>
+        <tr>
+            <th>Naziv i mesto:</th>
+            <th> Datum i vreme:</th>
+            <th> Tip treninga: </th>
+            <th>
+                Maksimalan broj posetilaca:
+            </th>
+            @if (ViewBag.Count != 0)
+            {
+                <th>Ukupan broj prijavljenih posetilaca na taj trening:</th>
+            }
+            @{Korisnik ko = (Korisnik)Session["logedIn"];
+            if (ko.Uloga == UlogaEnum.Uloga.POSETILAC)
+            {
+                <th>Prijava:</th>
+            }
+
+            }
+
+        </tr>
+        @{
+            foreach (var item in Model)
+            {
+
                 <tr>
-                    <th>Naziv i mesto:</th>
-                    <th> Datum i vreme:</th>
-                    <th> Tip treninga: </th>
-                    <th>
-                        Maksimalan broj posetilaca:
-                    </th>
-                    @if (ViewBag.Count != 0)
-                    {
-                        <th>Ukupan broj prijavljenih posetilaca na taj trening:</th>
-                    }
-                  
+                    <td>@item.Naziv @item.Id se odrzava u @item.FitnesCent</td>
 
-                </tr>
-                @{
-                    foreach (var item in ViewBag.GrupniTr)
-                    {
-                        
-                        <tr>
-                            <td>@item.Naziv @item.Id se odrzava u @item.FitnesCent</td>
-                            
-                            <td>@item.DatumIVremeTreninga.ToString("dd / MM / yyyy HH: mm")</td>
+                    <td>@item.DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm")</td>
 
 
-                            <td>@item.TipTreninga</td>
-                           
-                            <td>@item.MaxBrojPosetilaca</td>
-                            @{
-                                int count = 0;
-                                foreach(var k in ViewBag.Lista)
+                    <td>@item.TipTreninga</td>
+
+                    <td>@item.MaxBrojPosetilaca</td>
+                    @{
+                        int count = 0;
+                        foreach (var k in ViewBag.Lista)
+                        {
+                            if (k.GrupniTreninziKorisnikPrijavljen != null)
+                            {
+                                for (int i = 0; i < k.GrupniTreninziKorisnikPrijavljen.Count; i++)
                                 {
-                                    if (k.GrupniTreninziKorisnikPrijavljen != null)
+                                    if (k.GrupniTreninziKorisnikPrijavljen[i] == item.Id)
                                     {
-                                        for (int i = 0; i < k.GrupniTreninziKorisnikPrijavljen.Count; i++)
+                                        count++;
+                                    }
+                                }
+                            }
+
+
+                        }
+
+                    }
+
+                    <td>@count</td>
+
+                    @if (Session["logedIn"] != null)
+                    {
+                        Korisnik k = (Korisnik)Session["logedIn"];
+                        if (k.Uloga == UlogaEnum.Uloga.POSETILAC)
+                        {
+                            if (item.MaxBrojPosetilaca > count)
+                            {
+                                <td>
+                                    @{if (k.GrupniTreninziKorisnikPrijavljen == null)
                                         {
-                                            if (k.GrupniTreninziKorisnikPrijavljen[i] == item.Id)
-                                            {
-                                                count++;
-                                            }
+                                            k.GrupniTreninziKorisnikPrijavljen = new List<int>();
+                                        }
+
+                                        if (k.GrupniTreninziKorisnikPrijavljen.Count != 0 && k.GrupniTreninziKorisnikPrijavljen.Exists(x => x.Equals(item.Id)))
+                                        {
+                                            @ViewBag.Prijavljen
+                                        }
+                                        else
+                                        {
+                                            <form action="~/Posetilac/PrijavaTreninga" method="post">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <input type="submit" value="Prijavi se na trening" name="" />
+                                            </form>
                                         }
                                     }
+                                </td>
+                                        }
 
-
-                                }
-
-                            }
-                           
-                            <td>@count</td>
-                                
-                            
-                            
+                                        else
+                                        {
+                                            <td> Popunjena mesta </td>
+                                                }
+                                            }
+                                        }                      
+                </tr>
+                                    }
+        }
+    </table>
+    @{ 
+        if (ViewBag.Komentari.Count != 0)
+        {
+            <p>Komentari koji su posetioci ostavlili:</p>
+            <table>
+                @foreach (var item in ViewBag.Komentari)
+                {
+                    foreach (var it in ViewBag.KorisniciKom)
+                    {
+                        <tr>
+                            <th>Tekst komentara:</th>
+                            <th>Ocena od 1 do 5:</th>
+                            <th>Korisnicko ime:</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @item.TekstKomentara
+                            </td>
+                            <td>
+                                @item.Ocena
+                            </td>
+                            <td>
+                                @it.KorisnickoIme
+                            </td>
                         </tr>
                     }
-                    //fali jos ispis za posetioce koji su tu
                 }
-
             </table>
-            <h4>
-                Povratak na<a href="~/Pocetni/Index"> pocetnu stranicu</a>
-            </h4>
-        </form>
+        }
+    }
+    
+    @if (Session["logedIn"] != null)
+    {
+        Korisnik kor = (Korisnik)Session["logedIn"];
+        if (kor.Uloga == UlogaEnum.Uloga.POSETILAC)
+        {
+            bool dozvola = false;
+            foreach (var item in Model)
+            {
+                if (kor.GrupniTreninziKorisnikPrijavljen.Exists(x => x.Equals(item.Id)))
+                {
+                    dozvola = true;
+                    break;
+                }
+            }
 
-   
+            if (dozvola)
+            {
+                <p>Ostavite komentar</p>
+            }
+        }
+
+    }
+            <h4>
+                Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+            </h4>   
 </body>

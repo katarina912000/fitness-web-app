@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+@using Projekat_WEB.Models
+@model IEnumerable<Korisnik>
+<h2>Izmeni podatke</h2>
+
+
+<form action="~/Pocetni/EditConfirm" method="post"> 
+<table>
+    @{if (ViewBag.Sesija != null)
+        {
+            <tr>
+                <td>Ime:</td>
+                <td>
+                    <input type="text" value=@ViewBag.Sesija.Ime name="ime" />
+                </td>
+            </tr>
+            <tr>
+                <td>Prezime:</td>
+                <td>
+                    <input type="text" value=@ViewBag.Sesija.Prezime name="prezime" />
+                </td>
+            </tr>
+            <tr>
+                <td>Korisnicko ime:</td>
+                <td>
+                    <input type="text" value=@ViewBag.Sesija.KorisnickoIme name="korIme" />
+                </td>
+            </tr>
+            <tr>
+                <td>Lozinka:</td>
+                <td>
+                    <input type="text" value=@ViewBag.Sesija.Lozinka name="lozinka" />
+                </td>
+            </tr>
+            <tr>
+                <td>Pol:</td>
+                <td>
+                    <input list="pol" name="pol" value="@ViewBag.Sesija.Pol" />
+                    <datalist id="pol">
+                        <option value="ZENSKO"></option>
+                        <option value="MUSKO"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>
+                    <input type="text" value=@ViewBag.Sesija.Email name="email" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Datum rodjenja:
+                </td>
+                <td>
+                    <input type="text" value="@ViewBag.Sesija.GodinaRodjenja.ToString("dd/MM/yyyy HH:mm")" name="datumRodj" />
+                </td>
+            </tr>
+            }
+        }
+          <tr>
+              <td style="text-align:center" ; colspan="2">
+                  <input type="submit" height="80" width="120" value="Potvrdi" />
+              </td>
+          </tr>
+                        
+ </table>
+</form>
+
+
+

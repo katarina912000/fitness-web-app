@@ -39,11 +39,32 @@ namespace Projekat_WEB.Models
         public string FitnesCent { get; set; }
         public DateTime DatumIVremeTreninga { get; set; }
         public int MaxBrojPosetilaca { get; set; }
-        public List<int> Korisnici { get; set; } 
+        public List<int> Korisnici { get; set; }
+
+        private string UpisListi(List<int> objects)
+        {
+            string text = null;
+            if (objects != null)
+            {
+                for (int i = 0; i < objects.Count; i++)
+                {
+                    text += objects[i];
+                    if (i != objects.Count - 1)
+                    {
+                        text += ",";
+                    }
+                }
+            }
+
+            return text;
+        }
+
+        public override string ToString()
+        {
+            return "Grupni trening"+";"+Id + ";" +TipTreninga+";"+FitnesCent+";"+TrajanjeTreninga+";"+DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm") +";"+MaxBrojPosetilaca+";"+UpisListi(Korisnici);
+        }
 
 
 
-
-        
     }
 }

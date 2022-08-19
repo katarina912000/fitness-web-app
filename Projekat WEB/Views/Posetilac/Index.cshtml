@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<head>
+    <style>
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+
+        table, th, td {
+            border: 1px solid;
+            border-color: antiquewhite;
+            color:antiquewhite;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+
+</head>
+<body id="gradient">
+    <h2>Prijavljeni grupni treninzi</h2>
+    <table>
+        <tr>
+            <th>Naziv i mesto:</th>
+            <th> Datum i vreme:</th>
+            <th> Tip treninga: </th>
+        </tr>
+        @{
+            foreach (var item in ViewBag.Gts)
+            {
+                <tr>
+                    <td>@item.Naziv @item.Id se odrzava u @item.FitnesCent</td>
+
+                    <td>@item.DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm")</td>
+
+
+                    <td>@item.TipTreninga</td>
+                </tr>
+            }
+        }
+
+    </table>
+    <h4 style="color:antiquewhite">Sortiraj:</h4>
+    <form action="~/Posetilac/RastuceNaziv" method="post">
+
+
+        <input type="submit" value="rastuce - naziv" />
+
+    </form>
+
+    <form action="~/Posetilac/OpadajuceNaziv" method="post">
+
+
+        <input type="submit" value="opadajuce - naziv" />
+
+    </form>
+
+    <form action="~/Posetilac/RastuceTip" method="post">
+
+
+        <input type="submit" value="rastuce - tip" />
+
+    </form>
+
+    <form action="~/Posetilac/OpadajuceTip" method="post">
+
+
+        <input type="submit" value="opadajuce - tip" />
+
+    </form>
+    
+    <form action="~/Posetilac/RastuceDatum" method="post">
+
+
+    <input type="submit" value="rastuce - datum" />
+
+   </form>
+
+    <form action="~/Posetilac/OpadajuceDatum" method="post">
+
+
+        <input type="submit" value="opadajuce - datum" />
+
+    </form>
+
+
+
+    <form action="~/Posetilac/PretragaKombinovano" method="post">
+        <p>Pretraga grupnih treninga</p>
+        <table>
+            <tr>
+                <td>Nazivu:</td>
+                <td>
+                    <input type="text" name="naziv" value="Grupni trening" />
+                </td>
+                <td>
+                    <input type="number" name="id" value="0"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Tip treninga:
+                </td>
+                <td>
+                    <input list="tip" name="tipTreninga" />
+                    <datalist id="tip">
+                        <option value="YOGA"></option>
+                        <option value="LES MILLS TONE"></option>
+                        <option value="BODYPUMP"></option>
+                        <option value="BODYCOMBAT"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Naziv fitnes centra:
+                </td>
+                <td>
+                    <input type="text" name="nazivFC" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:center" ; colspan="2">
+                    <input type="submit" value="Pretraži" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+

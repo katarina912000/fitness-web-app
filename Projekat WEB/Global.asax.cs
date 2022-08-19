@@ -19,6 +19,8 @@ namespace Projekat_WEB
             HttpContext.Current.Application["fitnesCentri"] = new List<FitnesCentar>();
             HttpContext.Current.Application["grupniTreninzi"] = new List<GrupniTrening>();
             HttpContext.Current.Application["korisnici"] = new List<Korisnik>();
+            HttpContext.Current.Application["komentari"] = new List<Komentar>();
+
 
         }
     }

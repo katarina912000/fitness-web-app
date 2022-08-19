@@ -17,12 +17,14 @@ namespace Projekat_WEB.Controllers
 
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
             List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
+            List<Komentar> comments = (List<Komentar>)HttpContext.Application["komentari"];
+
             SortiranjeRastuce();
 
             grupniTreninzi = UpisIzBazeGrupniTreninzi();
             UpisIzBaze();
             korisnici = UpisIzBazeKorisnici();
-            
+            UpisIzBazeKomentari();
 
             
             string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/FitnesCentri.txt"));
@@ -36,6 +38,72 @@ namespace Projekat_WEB.Controllers
             return View(fitnesCentri);
         }
        
+        //tu smestiti za editovanje akciju
+        [HttpPost] 
+        public ActionResult EditConfirm(string ime, string prezime, string korIme, string lozinka, string pol, string email, string datumRodj)
+        {
+            
+            List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
+            List<FitnesCentar> fitnesCentri = (List<FitnesCentar>)HttpContext.Application["fitnesCentri"];
+
+
+            Korisnik k = new Korisnik();
+            k = (Korisnik)Session["logedIn"];
+            
+            if (k.Ime != ime)
+            {
+                k.Ime = ime;
+            }
+            if (k.Prezime !=prezime)
+            {
+                k.Prezime = prezime;
+            }
+            if (k.KorisnickoIme != korIme)
+            {
+                k.KorisnickoIme = korIme;
+            }
+            if (k.Lozinka != lozinka)
+            {
+                k.Lozinka = lozinka;
+            }
+            if (k.Pol != pol)
+            {
+                k.Pol = pol;
+            }
+
+            if (k.Email != email)
+            {
+                k.Email = email;
+            }
+            if (k.GodinaRodjenja.ToString() != datumRodj)
+            {
+                DateTime datetime = DateTime.ParseExact(datumRodj, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                // DateTime date=Convert.ToDateTime(datumRodj);
+                //DateTime oDate = DateTime.ParseExact(datumRodj, "dd/MM/yyyy", null);
+               // DateTime dat = DateTime.Parse(datumRodj);
+                k.GodinaRodjenja = datetime;
+            }
+
+
+            string text = null;
+            var path1 = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\Korisnici.txt";
+
+            foreach (Korisnik kor in korisnici)
+            {
+                text+= kor.ToString();
+                if (kor.Id.ToString() != "\r")
+                {
+                    text += "\r";
+                }
+            }
+           
+            System.IO.File.WriteAllText(path1, text);
+          
+            HttpContext.Application["korisnici"] = korisnici;
+
+            return View("Index",fitnesCentri);
+        }
+
         public void SortiranjeRastuce()
         {
 
@@ -113,9 +181,10 @@ namespace Projekat_WEB.Controllers
 
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
             List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
-
-
-            
+            List<Komentar> comments = (List<Komentar>)HttpContext.Application["komentari"];
+            List<Korisnik> korisnici2 = new List<Korisnik>();
+            List<Komentar> kom = new List<Komentar>();
+            Korisnik kor = (Korisnik)Session["logedIn"];
             List<GrupniTrening> gt=new List<GrupniTrening>();
             List<GrupniTrening> gtFC = new List<GrupniTrening>();
             gt = UpisIzBaze();
@@ -123,7 +192,7 @@ namespace Projekat_WEB.Controllers
                 foreach (FitnesCentar fc in fitnesCentri)
                 {
                     if (fc.Id == id)
-                    {
+                    { 
                         ViewBag.Data = fc;
 
                         for (int i = 0; i < gt.Count; i++)
@@ -131,52 +200,130 @@ namespace Projekat_WEB.Controllers
                             if (fc.Ime == gt[i].FitnesCent)
                             {
                                 gtFC.Add(gt[i]);
+                            
                             }
-                         }
+                        if (kor != null && kor.Uloga==UlogaEnum.Uloga.POSETILAC)
+                        {
+                            for (int q = 0; q < kor.GrupniTreninziKorisnikPrijavljen.Count; q++)
+                            {
+                                if (kor.GrupniTreninziKorisnikPrijavljen[q] == gt[i].Id)
+                                {
+                                    ViewBag.TreningKom = true;
+                                    break;
+                                }
+                            }
+                           
+                        }
+                    }
                     
                         ViewBag.GrupniTr = gtFC;
+
+                        for (int j = 0; j < comments.Count; j++)
+                        {
+
+                            if (comments[j].FitnesCentarKomentar.ToLower() == fc.Ime.ToLower())
+                            {
+                                kom.Add(comments[j]);
+                            }
+                            
+                        }
+                    
+
+                    }
+               }
+
+                foreach(Korisnik k in korisnici)
+                {
+                    for (int l = 0; l < kom.Count; l++)
+                    {
+                        if (k.Id == kom[l].PosetilacKojiKomentarise)
+                        {
+                            korisnici2.Add(k);
+                        }
                     }
                 }
 
-
-
-
             ViewBag.Lista = korisnici;
+            ViewBag.Prijavljen = "prijavljen";
+            ViewBag.Komentari = kom;
+            ViewBag.KorisniciKom = korisnici2;
+
             HttpContext.Application["fitnesCentri"] = fitnesCentri;
             HttpContext.Application["grupniTreninzi"] = gt;
            
-            return View();
+            return View(gtFC);
 
         }
         
-        public List<GrupniTrening> UpisIzBazeGrupniTreninzi()
+        public List<Komentar> UpisIzBazeKomentari()
         {
-            List<GrupniTrening> grupniTr = new List<GrupniTrening>();
-            if (grupniTr.Count == 0)
+            List<Komentar> komentari = new List<Komentar>();
+            List<Komentar> comments = (List<Komentar>)HttpContext.Application["komentari"];
+            if (komentari.Count == 0)
             {
-                string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/GrupniTreninzi.txt"));
-                string[] lines = text.Split('\n');
+                string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/Komentari.txt"));
+                string[] lines = text.Split('\r');
                 for (int i = 0; i < lines.ToList().Count; i++)
                 {
                     string oneLine = lines[i];
                     string[] konacno = oneLine.Split(';');
-                    GrupniTrening gp = new GrupniTrening();
-                    
-                    var idd = Int32.Parse(konacno[1]);
-                    var trajanjeTr = Int32.Parse(konacno[4]);
-                    var datum = konacno[5];
-                    DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                    var maksBrPoset = Int32.Parse(konacno[6]);
-                    
-                    gp.Naziv = konacno[0];
-                    gp.Id = idd;
-                    gp.TipTreninga = konacno[2];
-                    gp.FitnesCent = konacno[3];
-                    gp.DatumIVremeTreninga = datetime;
-                    gp.TrajanjeTreninga = trajanjeTr;
-                    gp.MaxBrojPosetilaca = maksBrPoset;
+                    if (oneLine != "")
+                    {
+                        Komentar k = new Komentar();
+                        var idd = Int32.Parse(konacno[0]);
+                        var idPosetioca = Int32.Parse(konacno[1]);
+                        var ocenaa = Int32.Parse(konacno[4]);
 
-                    grupniTr.Add(gp);
+                        k.Id = idd;
+                        k.PosetilacKojiKomentarise = idPosetioca;
+                        k.FitnesCentarKomentar = konacno[2];
+                        k.TekstKomentara = konacno[3];
+                        k.Ocena = ocenaa;
+                        
+                        komentari.Add(k);
+                    }
+
+                }
+            }
+            comments = komentari;
+            HttpContext.Application["komentari"] = comments;
+            return komentari;
+        }
+
+        public List<GrupniTrening> UpisIzBazeGrupniTreninzi()
+        {
+            List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
+
+            List<GrupniTrening> grupniTr = new List<GrupniTrening>();
+            if (grupniTr.Count == 0)
+            {
+                string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/GrupniTreninzi.txt"));
+                string[] lines = text.Split('\r');
+                for (int i = 0; i < lines.ToList().Count; i++)
+                {
+                    string oneLine = lines[i];
+                    string[] konacno = oneLine.Split(';');
+                    if (oneLine != "")
+                    {
+                        GrupniTrening gp = new GrupniTrening();
+
+                        var idd = Int32.Parse(konacno[1]);
+                        var trajanjeTr = Int32.Parse(konacno[4]);
+                        var datum = konacno[5];
+                        DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                        var maksBrPoset = Int32.Parse(konacno[6]);
+
+                        gp.Naziv = konacno[0];
+                        gp.Id = idd;
+                        gp.TipTreninga = konacno[2];
+                        gp.FitnesCent = konacno[3];
+                        gp.DatumIVremeTreninga = datetime;
+                        gp.TrajanjeTreninga = trajanjeTr;
+                        gp.MaxBrojPosetilaca = maksBrPoset;
+
+                        grupniTr.Add(gp);
+                    }
+                   
                 }
                 
                     
@@ -197,125 +344,128 @@ namespace Projekat_WEB.Controllers
             if (grupniTreninzi.Count == 0)
             {
                 string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/GrupniTreninzi.txt"));
-                string[] lines = text.Split('\n');
+                string[] lines = text.Split('\r');
                 for (int i = 0; i < lines.ToList().Count; i++)
                 {
                     string oneLine = lines[i];
                     string[] konacno = oneLine.Split(';');
-                    GrupniTrening gp = new GrupniTrening();
-                    foreach (FitnesCentar fc in fitnesCentri)
+                    if (oneLine != "")
                     {
-                        if (fc.Ime == konacno[3])
+                        GrupniTrening gp = new GrupniTrening();
+                        foreach (FitnesCentar fc in fitnesCentri)
                         {
+                            if (fc.Ime == konacno[3])
+                            {
 
-                            var idd = Int32.Parse(konacno[1]);
-                            var trajanjeTr = Int32.Parse(konacno[4]);
-                            var datum = konacno[5];
-                            DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                            var maksBrPoset = Int32.Parse(konacno[6]);
-                            string[] idsKor = konacno[7].Split(',');//1,2 ->tu su sad 1 i 2
+                                var idd = Int32.Parse(konacno[1]);
+                                var trajanjeTr = Int32.Parse(konacno[4]);
+                                var datum = konacno[5];
+                                DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                var maksBrPoset = Int32.Parse(konacno[6]);
+                                string[] idsKor = konacno[7].Split(',');//1,2 ->tu su sad 1 i 2
+                                int[] idsKoris = Array.ConvertAll(idsKor, s => int.Parse(s));
 
-                            //idsgtt = konacno[9].Split(',');
-                            int[] idsKoris = Array.ConvertAll(idsKor, s => int.Parse(s));
-                            gp.Korisnici = idsKoris.ToList();
-                            gp.Naziv = konacno[0];
-                            gp.Id = idd;
-                            gp.TipTreninga = konacno[2];
-                            gp.FitnesCent = konacno[3];
-                            gp.DatumIVremeTreninga = datetime;
-                            gp.TrajanjeTreninga = trajanjeTr;
-                            gp.MaxBrojPosetilaca = maksBrPoset;
+                                gp.Korisnici = idsKoris.ToList();
+                                gp.Naziv = konacno[0];
+                                gp.Id = idd;
+                                gp.TipTreninga = konacno[2];
+                                gp.FitnesCent = konacno[3];
+                                gp.DatumIVremeTreninga = datetime;
+                                gp.TrajanjeTreninga = trajanjeTr;
+                                gp.MaxBrojPosetilaca = maksBrPoset;
+                            }
+
                         }
-                       
+
+                        grupniTreninzi.Add(gp);
                     }
-                    grupniTreninzi.Add(gp);
                 }
             }
-
-            
             return grupniTreninzi;
         }
+
+        [HttpPost]
+        public ActionResult Edit()
+        {
+            List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
+            ViewBag.GrupniTr = grupniTreninzi;
+            List<FitnesCentar> fitnesCentri = (List<FitnesCentar>)HttpContext.Application["fitnesCentri"];
+
+            List<GrupniTrening> gtrs = UpisIzBaze();
+            ViewBag.GrupniTrFC = gtrs;
+            ViewBag.Sesija = Session["logedIn"];
+            return View();
+        }
+
+        //upis korisnika
+        //popraviti upis da bude iz korisnici new
         public List<Korisnik> UpisIzBazeKorisnici()
         {
 
             List<Korisnik> korisnici = new List<Korisnik>();
+            List<Korisnik> korisnici2 = (List<Korisnik>)HttpContext.Application["korisnici"];
+
             List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
 
             string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/Korisnici.txt"));
-            string[] lines = text.Split('\n');
+            string[] lines = text.Split('\r');
 
             for (int i = 0; i < lines.ToList().Count; i++)
             {
                 string oneLine = lines[i];
                 string[] konacno = oneLine.Split(';');
-
-                Korisnik k = new Korisnik();
-
-                var id = Int32.Parse(konacno[0]);
-                k.Id = id;
-                k.KorisnickoIme = konacno[1];
-                k.Lozinka = konacno[2];
-
-                k.Ime = konacno[3];
-                k.Prezime = konacno[4];
-                k.Pol = konacno[5];
-                k.Email = konacno[6];
-                string date = konacno[7];
-                DateTime dateTime = DateTime.Parse(date);
-                k.GodinaRodjenja = dateTime;
-               
-                k.Uloga = (UlogaEnum.Uloga)Enum.Parse(typeof(UlogaEnum.Uloga),konacno[8]);
-                if (konacno[9] != "")
+                if (oneLine != "")
                 {
-                    string[] idsgtt = konacno[9].Split(',');//1,2 ->tu su sad 1 i 2
+                    Korisnik k = new Korisnik();
 
-                    //idsgtt = konacno[9].Split(',');
-                    int[] idsGt = Array.ConvertAll(idsgtt, s => int.Parse(s));
+                    var id = Int32.Parse(konacno[0]);
+                    k.Id = id;
 
-                    for (int m = 0; m < grupniTreninzi.Count; m++)
+
+
+                    k.KorisnickoIme = konacno[1];
+                    k.Lozinka = konacno[2];
+
+                    k.Ime = konacno[3];
+                    k.Prezime = konacno[4];
+                    k.Pol = konacno[5];
+                    k.Email = konacno[6];
+                    string date = konacno[7];
+                    DateTime datetime = DateTime.ParseExact(date, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+
+
+                    k.GodinaRodjenja = datetime;
+
+                    k.Uloga = (UlogaEnum.Uloga)Enum.Parse(typeof(UlogaEnum.Uloga), konacno[8]);
+                    if (konacno[9] != "")
                     {
-                        for (int j = 0; j < idsGt.Length; j++)
-                        {
-                            if (idsGt[j] == grupniTreninzi[m].Id)
-                            {
-                                ViewBag.GrupniTrening = grupniTreninzi[m].Naziv + " u " + grupniTreninzi[m].FitnesCent;
-                            }
-                        }
+                        string[] idsgtt = konacno[9].Split(',');//1,2 ->tu su sad 1 i 2                  
+                        int[] idsGt = Array.ConvertAll(idsgtt, s => int.Parse(s));
+                        k.GrupniTreninziKorisnikPrijavljen = idsGt.ToList();
+                    }
+                    if (konacno[10] != "")
+                    {
+                        string[] idsgtt = konacno[10].Split(',');
+                        int[] idsGt = Array.ConvertAll(idsgtt, s => int.Parse(s));
+                        k.GrupniTreninziKorisnikTrener = idsGt.ToList();
+                    }
+                    if (konacno[11] != "")
+                    {
+                        k.AngazovanTrenerFitnesCentra = konacno[11];
+                    }
+                    if (konacno[12] != "")
+                    {
+                        string[] fcs = konacno[12].Split(',');
+                        k.FitnesCentriVlasnik = fcs.ToList();
 
                     }
-                    k.GrupniTreninziKorisnikPrijavljen = idsGt.ToList();
+                    korisnici.Add(k);
                 }
-
-
-                k.LogedIn = bool.Parse(konacno[13].ToLower());
-
-
-                korisnici.Add(k);
-
             }
+               
             HttpContext.Application["korisnici"] = korisnici;
             return korisnici;
         }
     
-
-  
-
-
-        
-        ////citanje iz txt fajla
-        //public void Read()
-        //{
-        //    var path = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\FitnesCentri.txt";
-        //    if (System.IO.File.Exists(path))
-        //    {
-        //        using(TextReader tr=new StreamReader(path))
-        //        {
-        //            var text = tr.ReadLine();
-        //        }
-        //    }
-
-        //}
-
-
     }
 }

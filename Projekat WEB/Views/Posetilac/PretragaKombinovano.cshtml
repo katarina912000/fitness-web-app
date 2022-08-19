@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "PretragaKombinovano";
+    Layout = null;
+}
+
+<h2>PretragaKombinovano</h2>
+
+<head>
+    <style>
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+         table,th,td,tr{
+                border: 1px solid;
+                border-color: antiquewhite;
+                color: antiquewhite;
+            }
+    </style>
+
+</head>
+<body id="gradient">
+    
+        @{if (ViewBag.Greska == null)
+            {
+                if (ViewBag.Data != null)
+                {//naziv i id
+
+                    <table>
+                        <tr>
+                            <td>
+                                Ime grupnog treninga: @ViewBag.Data.Naziv @ViewBag.Data.Id
+                            </td>
+                        </tr>
+
+                    </table>
+                }
+
+
+                if (ViewBag.GrupniTr != null && ViewBag.GrupniTr.Count != 0)
+                {
+                    <table>
+                        @foreach (var gt in ViewBag.GrupniTr)
+                        {//nazivfc
+
+
+                            <tr>
+
+
+                                <td>
+                                    Ime grupnog treninga: @gt.Naziv @gt.Id
+                                </td>
+                            </tr>
+                        }
+
+
+
+                    </table>
+                }
+                if (ViewBag.Gts != null && ViewBag.Gts.Count != 0)
+                {
+                    <table>
+                        @foreach (var gt in ViewBag.Gts)
+                        {//tip treninga
+
+                            <tr>
+                                <td>
+                                    Ime grupnog treninga: @gt.Naziv @gt.Id
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+
+
+            }
+            else
+            {
+                <p>@ViewBag.Greska</p>
+            }
+
+        }
+    <p>
+        Povratak na<a href="~/Posetilac/Index"> pocetnu stranicu</a>
+    </p>
+</body>

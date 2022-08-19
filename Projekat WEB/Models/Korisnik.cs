@@ -8,7 +8,7 @@ namespace Projekat_WEB.Models
 {
     public class Korisnik
     {
-        public Korisnik(int id,string korisnickoIme, string lozinka, string ime, string prezime, string pol, string email, DateTime godinaRodjenja, string uloga, List<int> grupniTreninziKorisnikPrijavljen, List<string> grupniTreninziKorisnikTrener, string angazovanTrenerFitnesCentra, List<string> fitnesCentriVlasnik,bool logedIn)
+        public Korisnik(int id,string korisnickoIme, string lozinka, string ime, string prezime, string pol, string email, DateTime godinaRodjenja, string uloga, List<int> grupniTreninziKorisnikPrijavljen, List<int> grupniTreninziKorisnikTrener, string angazovanTrenerFitnesCentra, List<string> fitnesCentriVlasnik)
         {
             Id = id;
 
@@ -53,7 +53,6 @@ namespace Projekat_WEB.Models
             //    centri[i].Ime = fitnesCentriVlasnik[i];
             //}
             FitnesCentriVlasnik = fitnesCentriVlasnik;
-            LogedIn = logedIn;
         }
 
             
@@ -71,15 +70,52 @@ namespace Projekat_WEB.Models
         public DateTime GodinaRodjenja { get; set; }
         public UlogaEnum.Uloga Uloga { get; set; }
         public List<int> GrupniTreninziKorisnikPrijavljen { get; set; }
-        public List<string> GrupniTreninziKorisnikTrener { get; set; }
+        public List<int> GrupniTreninziKorisnikTrener { get; set; }
         public string AngazovanTrenerFitnesCentra { get; set; }
 
         public List<string> FitnesCentriVlasnik { get; set; }
-        public bool LogedIn { get; set; }
+
+        private string UpisListi(List<int> objects)
+        {
+            string text = null;
+            if (objects != null)
+            {
+                for (int i = 0; i < objects.Count; i++)
+                {
+                    text += objects[i];
+                    if (i != objects.Count - 1)
+                    {
+                        text += ",";
+                    }
+                }
+            }
+           
+            return text;
+        }
+        private string UpisListiString(List<string> objects)
+        {
+            string text = null;
+            if (objects != null)
+            {
+                for (int i = 0; i < objects.Count; i++)
+                {
+                    text += objects[i];
+                    if (i != objects.Count-1)
+                    {
+                        text += ",";
+                    }
+                }
+            }
+          
+            return text;
+        }
+
+
 
         public override string ToString()
         {
-            return Id + ";" + KorisnickoIme + ";" + Lozinka + ";" + Ime + ";" + Prezime + ";" + Pol + ";" + Email + ";" + GodinaRodjenja + ";" + Uloga + ";" + GrupniTreninziKorisnikPrijavljen + ";" + GrupniTreninziKorisnikTrener + ";" + AngazovanTrenerFitnesCentra + ";" + FitnesCentriVlasnik + ";" + LogedIn;
+
+            return Id + ";" + KorisnickoIme + ";" + Lozinka + ";" + Ime + ";" + Prezime + ";" + Pol + ";" + Email + ";" + GodinaRodjenja.ToString("dd/MM/yyyy HH:mm") + ";" + Uloga + ";" + UpisListi(GrupniTreninziKorisnikPrijavljen) + ";" + UpisListi(GrupniTreninziKorisnikTrener) + ";" + AngazovanTrenerFitnesCentra + ";" + UpisListiString(FitnesCentriVlasnik);
         }
 
 

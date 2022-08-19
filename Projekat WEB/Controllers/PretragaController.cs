@@ -104,7 +104,7 @@ namespace Projekat_WEB.Controllers
                     {
                         foreach (FitnesCentar fc in fCentri)
                         {                           
-                                if (fc.GodinaOtvaranja > minGod && fc.GodinaOtvaranja < maksGod)
+                                if (fc.GodinaOtvaranja >= minGod && fc.GodinaOtvaranja <= maksGod)
                                 {
                                     nadjeni.Add(fc);
                                     ViewBag.Nadjeni = nadjeni;

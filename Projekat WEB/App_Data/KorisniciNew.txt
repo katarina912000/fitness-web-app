@@ -1,0 +1,8 @@
+3;Kristina Milic;gagart;flex;dabetic;ZENSKI;dabetick@gmail.com;08/13/2022 12:00;VLASNIK;;;;Non Stop Fitnes
+4;ggw;wf;fw;fw;ZENSKI;dabetick@gmail.com;08/18/2022 12:00;POSETILAC;2;;;;
+5;Milica Arsenijevic;rw;rw;rw;ZENSKI;dabetick@gmail.com;08/19/2022 12:00;VLASNIK;;;;Bestfit 24h;
+6;jrjj;jrj;jrj;jr;ZENSKI;dabetick@gmail.com;08/03/2022 12:00;POSETILAC;1,4;;;;
+7;Milan Maric;bdb;bd;bd;MUSKI;bdbd;08/10/2022 12:00;VLASNIK;;;;FLEX;
+8;katarinak;kaca;kaca;da;ZENSKI;dabetick@gmail.com;08/01/2022 12:00;POSETILAC;3;;;;
+9;joj;jrj;jrj;jr;ZENSKI;dabetick@gmail.com;08/03/2022 12:00;POSETILAC;3;;;;
+10;zdr;zdravko;krstic;d;MUSKI;JDSO;09/04/2000 10:00;TRENER;;1;FLEX;;

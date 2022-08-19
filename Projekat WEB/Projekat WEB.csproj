@@ -151,6 +151,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PocetniController.cs" />
+    <Compile Include="Controllers\PosetilacController.cs" />
     <Compile Include="Controllers\PretragaController.cs" />
     <Compile Include="Controllers\RegistracijaController.cs" />
     <Compile Include="Controllers\SortiranjaController.cs" />
@@ -171,7 +172,9 @@
   <ItemGroup>
     <Content Include="App_Data\FitnesCentri.txt" />
     <Content Include="App_Data\GrupniTreninzi.txt" />
+    <Content Include="App_Data\Komentari.txt" />
     <Content Include="App_Data\Korisnici.txt" />
+    <Content Include="App_Data\KorisniciNew.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Slike\fitnes1.jpg" />
@@ -221,6 +224,9 @@
     <Content Include="Views\Registracija\Add.cshtml" />
     <Content Include="Views\Registracija\Index.cshtml" />
     <Content Include="Views\Registracija\Login.cshtml" />
+    <Content Include="Views\Pocetni\Edit.cshtml" />
+    <Content Include="Views\Posetilac\Index.cshtml" />
+    <Content Include="Views\Posetilac\PretragaKombinovano.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\New\" />
