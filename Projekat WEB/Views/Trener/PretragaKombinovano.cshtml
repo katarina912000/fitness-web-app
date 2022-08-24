@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "PretragaKombinovano";
+    Layout = null;
+}
+
+<h2>PretragaKombinovano</h2>
+@{if (ViewBag.Greska == null)
+            {
+                if (ViewBag.Data != null)
+                {//naziv i id
+
+            <table>
+                <tr>
+                    <td>
+                        Ime grupnog treninga: @ViewBag.Data.Naziv @ViewBag.Data.Id
+                    </td>
+                </tr>
+
+            </table>
+        }
+
+
+        if (ViewBag.GrupniTr != null && ViewBag.GrupniTr.Count != 0)
+        {
+            <table>
+                @foreach (var gt in ViewBag.GrupniTr)
+                {//nazivfc
+
+
+                    <tr>
+
+
+                        <td>
+                            Ime grupnog treninga: @gt.Naziv @gt.Id
+                        </td>
+                    </tr>
+                }
+
+
+
+            </table>
+        }
+        if (ViewBag.Gts != null && ViewBag.Gts.Count != 0)
+        {
+            <table>
+                @foreach (var gt in ViewBag.Gts)
+                {//tip treninga
+
+                    <tr>
+                        <td>
+                            Ime grupnog treninga: @gt.Naziv @gt.Id
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+
+
+    }
+    else
+    {
+        <p>@ViewBag.Greska</p>
+    }
+
+}
+<p>
+    Povratak na<a href="~/Trener/Index"> prethodnu stranicu</a>
+</p>
+

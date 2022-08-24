@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "ModifikujTrening";
+    Layout = null;
+}
+@using Projekat_WEB.Models
+@model IEnumerable<GrupniTrening>
+
+<h2>Modifikuj trening</h2>
+<form action="~/Trener/EditConfirm" method="post">
+    <table>
+        @if (ViewBag.SesijaGT!=null)
+        {
+                <tr>
+                    <td>Naziv-id:</td>
+                    <td>
+                        Grupni trening <input type="number" value="@ViewBag.SesijaGT.Id" name="id" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fitnes centar:</td>
+                    <td>
+                        <input type="text" value=@ViewBag.SesijaGT.FitnesCent name="fitnesCent" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Trajanje treninga:</td>
+                    <td>
+                        <input type="number" value=@ViewBag.SesijaGT.TrajanjeTreninga name="trajanje" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Datum i vreme treninga:</td>
+                    <td>
+                        <input type="text" value="@ViewBag.SesijaGT.DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm")" name="datum" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tip treninga:</td>
+                    <td>
+                        <input list="tip" name="tip" value="@ViewBag.SesijaGT.TipTreninga" />
+                        <datalist id="tip">
+                            <option value="YOGA"></option>
+                            <option value="LES MILLS TONE"></option>
+                            <option value="BODYPUMP"></option>
+                            <option value="BODYCOMBAT"></option>
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Maksimalan broj posetilaca:</td>
+                    <td>
+                        <input type="number" value=@ViewBag.SesijaGT.MaxBrojPosetilaca name="maksPosetilaca" />
+                    </td>
+                </tr>
+               
+
+        <tr>
+            <td style="text-align:center" ; colspan="2">
+                <input type="submit" height="80" width="120" value="Potvrdi" />
+            </td>
+        </tr>
+        }
+    </table>
+</form>
+<h4>
+    Povratak na <a href="~/Trener/Index"> pocetnu stranicu</a>
+</h4>
+
+
+
+
+

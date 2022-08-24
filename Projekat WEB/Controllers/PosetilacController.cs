@@ -22,7 +22,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga < DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -30,6 +30,62 @@ namespace Projekat_WEB.Controllers
 
             }
             ViewBag.Gts = izdvojeni;
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult UnosKomentara(int ocena,string tekst,int idFCa)
+        {
+            List<Komentar> komentari = (List<Komentar>)HttpContext.Application["komentari"];
+            Korisnik k = (Korisnik)Session["logedIn"];
+            List<FitnesCentar> fitnesCentri = (List<FitnesCentar>)HttpContext.Application["fitnesCentri"];
+            FitnesCentar fce = new FitnesCentar();
+            List<GrupniTrening> gtFC = new List<GrupniTrening>();
+            List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
+
+
+            Komentar kom = new Komentar();
+            foreach(FitnesCentar fc in fitnesCentri)
+            {
+                if (fc.Id == idFCa)
+                {
+                    fce = fc;
+                }
+                for (int i = 0; i < grupniTreninzi.Count; i++)
+                {
+                    if (fc.Ime == grupniTreninzi[i].FitnesCent)
+                    {
+                        gtFC.Add(grupniTreninzi[i]);
+
+                    }
+                }
+            }
+            if (ocena != 0 && tekst != "")
+            {
+                kom.PosetilacKojiKomentarise = k.Id;
+                kom.TekstKomentara = tekst;
+                kom.Ocena = ocena;
+                kom.FitnesCentarKomentar = fce.Ime;
+                //dodati fc
+            }
+            komentari.Add(kom);
+            string text = null;
+            var path1 = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\Komentari.txt";
+            int id = 0;
+            foreach (Komentar ko in komentari)
+            {
+                id++;
+                kom.Id = id;
+                text += ko.ToString();
+                
+                if (ko.Id.ToString() != "\r")
+                {
+                    text += "\r";
+                }
+            }
+            
+            System.IO.File.WriteAllText(path1, text);
+            HttpContext.Application["komentari"] = komentari;
 
             return View();
         }
@@ -46,7 +102,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga < DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -70,7 +126,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga < DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -95,7 +151,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga < DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -119,7 +175,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga < DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -144,7 +200,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga < DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -172,7 +228,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga < DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -288,7 +344,7 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < grupniTreninzi.Count; i++)
                 {
-                    if (grupniTreninzi[i].Id == gts[j])
+                    if (grupniTreninzi[i].Id == gts[j] && grupniTreninzi[i].DatumIVremeTreninga<DateTime.Now)
                     {
                         izdvojeni.Add(grupniTreninzi[i]);
                     }
@@ -331,7 +387,7 @@ namespace Projekat_WEB.Controllers
                     string maloNaziv = gt.Naziv.ToLower();
                     for (int i = 0; i < k.GrupniTreninziKorisnikPrijavljen.Count; i++)
                     {
-                        if (k.GrupniTreninziKorisnikPrijavljen[i] == id && gt.Id == id)
+                        if (k.GrupniTreninziKorisnikPrijavljen[i] == id && gt.Id == id && gt.DatumIVremeTreninga < DateTime.Now)
                         {
                             nadjen = gt;
                             ViewBag.Data = nadjen;
@@ -342,7 +398,7 @@ namespace Projekat_WEB.Controllers
                     }
 
                 }
-                if (nadjen == null)
+                if (nadjen.Id == 0)
                 {
                     ViewBag.Greska = "Nije pronadjen grupni trening sa tim nazivom i id-jem";
                 }
@@ -365,9 +421,9 @@ namespace Projekat_WEB.Controllers
                 {
                     foreach (var gt in grupniTreninzi)
                     {
-                        if (gt.Id == k.GrupniTreninziKorisnikPrijavljen[i])
+                        if (gt.Id == k.GrupniTreninziKorisnikPrijavljen[i] && gt.DatumIVremeTreninga < DateTime.Now)
                         {
-                            if (gt.TipTreninga.ToLower() == tip.ToLower())
+                            if (gt.TipTreninga.ToLower() == tip.ToLower() )
                             {
                                 gts.Add(gt);
                                 ViewBag.Gts = gts;
@@ -398,7 +454,7 @@ namespace Projekat_WEB.Controllers
             {
                 foreach (var gt in grupniTreninzi)
                 {
-                    if (gt.FitnesCent.ToLower() == nazivFC.ToLower())
+                    if (gt.FitnesCent.ToLower() == nazivFC.ToLower() && gt.DatumIVremeTreninga < DateTime.Now)
                     {
                         gtFC.Add(gt);
                     }
@@ -408,7 +464,7 @@ namespace Projekat_WEB.Controllers
                 {
                     for (int i = 0; i < k.GrupniTreninziKorisnikPrijavljen.Count; i++)
                     {
-                        if (gt1.Id == k.GrupniTreninziKorisnikPrijavljen[i])
+                        if (gt1.Id == k.GrupniTreninziKorisnikPrijavljen[i] )
                         {
                             gtFC1.Add(gt1);
                             ViewBag.GrupniTr = gtFC1;

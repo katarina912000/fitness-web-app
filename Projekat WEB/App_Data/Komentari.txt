@@ -1,3 +1,1 @@
-﻿1;4;Non Stop Fitnes;Svidelo mi se;4
-2;12;Bestfit 24h;Treba bolje pojasniti vezbe;3
-3;8;FLEX;Doci cu ponovo;5
+1;4;Non Stop Fitnes;Svidelo mi se;42;12;Bestfit 24h;Treba bolje pojasniti vezbe;33;8;FLEX;Doci cu ponovo;54;12;Bestfit 24h;Nisam zadovljna;25;11;Non Stop Fitnes;Dobro je;4

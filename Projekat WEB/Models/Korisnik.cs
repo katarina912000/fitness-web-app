@@ -30,14 +30,19 @@ namespace Projekat_WEB.Models
 
             Email = email;
             GodinaRodjenja = godinaRodjenja;
-            string role = Uloga.ToString();
-            role = uloga.ToUpper();
+            Uloga = uloga.ToUpper();
+            if (Uloga == "POSETILAC")
+            {
+                Uloga = UlogaEnum.Uloga.POSETILAC.ToString();
+            }
+            else if(Uloga == "TRENER")
+            {
+                Uloga = UlogaEnum.Uloga.TRENER.ToString();
+            }else if(Uloga == "VLASNIK")
+            {
+                Uloga = UlogaEnum.Uloga.TRENER.ToString();
 
-            //List<GrupniTrening> gt1 = new List<GrupniTrening>();
-            //for (int i = 0; i < grupniTreninziKorisnikPrijavljen.Count; i++)
-            //{
-            //    gt1[i].Naziv = grupniTreninziKorisnikPrijavljen[i];
-            //}
+            }
             GrupniTreninziKorisnikPrijavljen = grupniTreninziKorisnikPrijavljen;
            
             //to su ids od gt
@@ -47,11 +52,6 @@ namespace Projekat_WEB.Models
             fc.Ime = angazovanTrenerFitnesCentra;
             AngazovanTrenerFitnesCentra = angazovanTrenerFitnesCentra;
 
-            //List<FitnesCentar> centri = new List<FitnesCentar>();
-            //for(int i = 0; i < fitnesCentriVlasnik.Count; i++)
-            //{
-            //    centri[i].Ime = fitnesCentriVlasnik[i];
-            //}
             FitnesCentriVlasnik = fitnesCentriVlasnik;
         }
 
@@ -68,7 +68,7 @@ namespace Projekat_WEB.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime GodinaRodjenja { get; set; }
-        public UlogaEnum.Uloga Uloga { get; set; }
+        public string Uloga { get; set; }
         public List<int> GrupniTreninziKorisnikPrijavljen { get; set; }
         public List<int> GrupniTreninziKorisnikTrener { get; set; }
         public string AngazovanTrenerFitnesCentra { get; set; }
@@ -115,7 +115,7 @@ namespace Projekat_WEB.Models
         public override string ToString()
         {
 
-            return Id + ";" + KorisnickoIme + ";" + Lozinka + ";" + Ime + ";" + Prezime + ";" + Pol + ";" + Email + ";" + GodinaRodjenja.ToString("dd/MM/yyyy HH:mm") + ";" + Uloga + ";" + UpisListi(GrupniTreninziKorisnikPrijavljen) + ";" + UpisListi(GrupniTreninziKorisnikTrener) + ";" + AngazovanTrenerFitnesCentra + ";" + UpisListiString(FitnesCentriVlasnik);
+            return Id + ";" + KorisnickoIme + ";" + Lozinka + ";" + Ime + ";" + Prezime + ";" + Pol + ";" + Email + ";" + GodinaRodjenja.ToString("dd/MM/yyyy HH:mm") + ";" + Uloga.ToString() + ";" + UpisListi(GrupniTreninziKorisnikPrijavljen) + ";" + UpisListi(GrupniTreninziKorisnikTrener) + ";" + AngazovanTrenerFitnesCentra + ";" + UpisListiString(FitnesCentriVlasnik);
         }
 
 

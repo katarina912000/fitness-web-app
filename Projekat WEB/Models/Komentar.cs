@@ -28,5 +28,10 @@ namespace Projekat_WEB.Models
         public string FitnesCentarKomentar { get; set; }
         public string TekstKomentara { get; set; }
         public int Ocena { get; set; }
-    }
+
+        public override string ToString()
+        {
+            return Id + ";" + PosetilacKojiKomentarise + ";" + FitnesCentarKomentar + ";" + TekstKomentara + ";" + Ocena;
+        }
+  }
 }

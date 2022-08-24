@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "SpisakPosetilaca";
+    Layout = null; 
+}
+
+@using Projekat_WEB.Models
+@model IEnumerable<string>
+<h2>Spisak posetilaca za izabrani trening:</h2>
+@{
+    foreach(var item in Model)
+    {
+        <p>@item</p><br />
+    }
+}
+

@@ -202,7 +202,7 @@ namespace Projekat_WEB.Controllers
                                 gtFC.Add(gt[i]);
                             
                             }
-                        if (kor != null && kor.Uloga==UlogaEnum.Uloga.POSETILAC)
+                        if (kor != null && kor.Uloga=="POSETILAC")
                         {
                             for (int q = 0; q < kor.GrupniTreninziKorisnikPrijavljen.Count; q++)
                             {
@@ -247,7 +247,7 @@ namespace Projekat_WEB.Controllers
             ViewBag.Prijavljen = "prijavljen";
             ViewBag.Komentari = kom;
             ViewBag.KorisniciKom = korisnici2;
-
+            ViewBag.IdFCa = id;
             HttpContext.Application["fitnesCentri"] = fitnesCentri;
             HttpContext.Application["grupniTreninzi"] = gt;
            
@@ -312,16 +312,19 @@ namespace Projekat_WEB.Controllers
                         var datum = konacno[5];
                         DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
                         var maksBrPoset = Int32.Parse(konacno[6]);
+                        var obrisan = bool.Parse(konacno[7]);
 
                         gp.Naziv = konacno[0];
-                        gp.Id = idd;
-                        gp.TipTreninga = konacno[2];
-                        gp.FitnesCent = konacno[3];
-                        gp.DatumIVremeTreninga = datetime;
-                        gp.TrajanjeTreninga = trajanjeTr;
-                        gp.MaxBrojPosetilaca = maksBrPoset;
-
-                        grupniTr.Add(gp);
+                            gp.Id = idd;
+                            gp.TipTreninga = konacno[2];
+                            gp.FitnesCent = konacno[3];
+                            gp.DatumIVremeTreninga = datetime;
+                            gp.TrajanjeTreninga = trajanjeTr;
+                            gp.MaxBrojPosetilaca = maksBrPoset;
+                        gp.Obrisan = obrisan;
+                            grupniTr.Add(gp);
+                        
+                       
                     }
                    
                 }
@@ -356,23 +359,29 @@ namespace Projekat_WEB.Controllers
                         {
                             if (fc.Ime == konacno[3])
                             {
+                                
+                                    var idd = Int32.Parse(konacno[1]);
+                                    var trajanjeTr = Int32.Parse(konacno[4]);
+                                    var datum = konacno[5];
+                                    DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+                                    var maksBrPoset = Int32.Parse(konacno[6]);
+                                //string[] idsKor = konacno[7].Split(',');//1,2 ->tu su sad 1 i 2
+                                //if (idsKor[0] != "")
+                                //{
+                                //    int[] idsKoris = Array.ConvertAll(idsKor, s => int.Parse(s));
+                                //    gp.Korisnici = idsKoris.ToList();
+                                //}
+                                var obrisan = bool.Parse(konacno[7]);
 
-                                var idd = Int32.Parse(konacno[1]);
-                                var trajanjeTr = Int32.Parse(konacno[4]);
-                                var datum = konacno[5];
-                                DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                                var maksBrPoset = Int32.Parse(konacno[6]);
-                                string[] idsKor = konacno[7].Split(',');//1,2 ->tu su sad 1 i 2
-                                int[] idsKoris = Array.ConvertAll(idsKor, s => int.Parse(s));
-
-                                gp.Korisnici = idsKoris.ToList();
                                 gp.Naziv = konacno[0];
-                                gp.Id = idd;
-                                gp.TipTreninga = konacno[2];
-                                gp.FitnesCent = konacno[3];
-                                gp.DatumIVremeTreninga = datetime;
-                                gp.TrajanjeTreninga = trajanjeTr;
-                                gp.MaxBrojPosetilaca = maksBrPoset;
+                                    gp.Id = idd;
+                                    gp.TipTreninga = konacno[2];
+                                    gp.FitnesCent = konacno[3];
+                                    gp.DatumIVremeTreninga = datetime;
+                                    gp.TrajanjeTreninga = trajanjeTr;
+                                    gp.MaxBrojPosetilaca = maksBrPoset;
+                                    gp.Obrisan = obrisan;
+                                
                             }
 
                         }
@@ -436,7 +445,7 @@ namespace Projekat_WEB.Controllers
 
                     k.GodinaRodjenja = datetime;
 
-                    k.Uloga = (UlogaEnum.Uloga)Enum.Parse(typeof(UlogaEnum.Uloga), konacno[8]);
+                    k.Uloga = konacno[8];
                     if (konacno[9] != "")
                     {
                         string[] idsgtt = konacno[9].Split(',');//1,2 ->tu su sad 1 i 2                  

@@ -64,8 +64,7 @@ namespace Projekat_WEB.Controllers
         {
             //List<Korisnik> baza=UpisIzBaze();
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
-            Korisnik k = (Korisnik)Session["RegKor"];
-            Korisnik koris = (Korisnik)Session["logedIn"];
+            
             int countID = 0;
             countID = korisnici.Count;
             if (korisnickoIme!="" && lozinka!=""&& ime!="" && prezime != "" && pol != null && email != "" && godinaRodjenja!="" )
@@ -89,7 +88,7 @@ namespace Projekat_WEB.Controllers
 
 
                 korisnici.Add(kor);
-                Session["RegKor"] = kor;
+                
                 Session["logedIn"] = kor;
 
                 var path = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\Korisnici.txt";

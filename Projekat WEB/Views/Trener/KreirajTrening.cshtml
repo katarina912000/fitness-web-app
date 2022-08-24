@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "KreirajTrening";
+    Layout = null;
+}
+@using Projekat_WEB.Models
+@model IEnumerable<GrupniTrening>
+
+<h2>KreirajTrening</h2>
+<form method="post" action="~/Trener/Kreiraj">
+    <table>
+        
+        @{ 
+            int count = Model.Count() + 1;
+        }
+        @if (ViewBag.Greska == null)
+        {
+            <tr>
+                <td>Naziv-id:</td>
+                <td>
+                    Grupni trening 
+                    <input type="number" name="id" value="@count" />
+                </td>
+            </tr>
+            <tr>
+                <td>Fitnes centar:</td>
+                <td>
+                    <input type="text" name="fitnesCent" />
+                </td>
+            </tr>
+            <tr>
+                <td>Trajanje treninga:</td>
+                <td>
+                    <input type="number" name="trajanje" />
+                </td>
+            </tr>
+            <tr>
+                <td>Datum: </td>
+                <td>
+                    <input type="date" name="datum" />
+                </td>
+            </tr>
+            <tr>
+                <td>Vreme treninga:</td>
+                <td><input type="time" name="vreme"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Tip treninga:</td>
+                <td>
+                    <input list="tip" name="tip" />
+                    <datalist id="tip">
+                        <option value="YOGA"></option>
+                        <option value="LES MILLS TONE"></option>
+                        <option value="BODYPUMP"></option>
+                        <option value="BODYCOMBAT"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td>Maksimalan broj posetilaca:</td>
+                <td>
+                    <input type="number" name="maksPosetilaca" />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="text-align:center" ; colspan="2">
+                    <input type="submit" height="80" width="120" value="Kreiraj" />
+                </td>
+            </tr>
+
+        }
+        else
+        {
+            <tr>
+                <td>@ViewBag.Greska</td>
+            </tr>
+        }
+
+    </table>
+</form>
+<h4 style="position:absolute; bottom:0;left:0">
+    Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+</h4>   
+

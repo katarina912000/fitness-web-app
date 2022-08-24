@@ -156,6 +156,8 @@
     <Compile Include="Controllers\RegistracijaController.cs" />
     <Compile Include="Controllers\SortiranjaController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\TrenerController.cs" />
+    <Compile Include="Controllers\VlasnikController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,6 +229,13 @@
     <Content Include="Views\Pocetni\Edit.cshtml" />
     <Content Include="Views\Posetilac\Index.cshtml" />
     <Content Include="Views\Posetilac\PretragaKombinovano.cshtml" />
+    <Content Include="Views\Trener\Index.cshtml" />
+    <Content Include="Views\Posetilac\UnosKomentara.cshtml" />
+    <Content Include="Views\Trener\ModifikujTrening.cshtml" />
+    <Content Include="Views\Trener\KreirajTrening.cshtml" />
+    <Content Include="Views\Trener\SpisakPosetilaca.cshtml" />
+    <Content Include="Views\Trener\PretragaKombinovano.cshtml" />
+    <Content Include="Views\Vlasnik\RegistrujTrenera.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\New\" />

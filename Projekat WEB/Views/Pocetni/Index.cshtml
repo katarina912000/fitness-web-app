@@ -41,10 +41,36 @@
                 <form action="~/Pocetni/Edit" method="post">
                     <input type="submit" value="Uredi i pregledaj svoj profil"/>
                 </form>
-                if(k.Uloga == UlogaEnum.Uloga.POSETILAC)
+                if(k.Uloga == "POSETILAC")
                 {
                     <form method="post" action="~/Posetilac/IstorijaTreninga">
                         <input type="submit" value="Istorija prijavljenih treninga" />
+                    </form>
+                }
+                if (k.Uloga == "TRENER")
+                {
+                    
+                    <form method="post" action="~/Trener/Prikazi">
+                        <input type="submit" value="Prikazi svoje  grupne treninge"/>
+                    </form>
+                    <form method="post" action="~/Trener/KreirajTrening">
+                        <input type="submit" value="Kreiraj grupni trening" />
+                    </form>
+                }
+                if (k.Uloga == "VLASNIK")
+                {
+                    if (ViewBag.Message != null)
+                    {
+                        <p>@ViewBag.Message</p><br />
+                    }
+                    <form method="post" action="~/Vlasnik/RegistrujTrenera">
+                        <input type="submit" value="Registruj novog trenera" />
+                    </form>
+                    <form method="post">
+                        <input type="submit" value="Prikazi svoje fitnes centre" />
+                    </form>
+                    <form method="post">
+                        <input type="submit" value="Pristigli komentari" />
                     </form>
                 }
 
@@ -89,8 +115,8 @@
                                 <td>
                                     <input list="pol" name="pol" />
                                     <datalist id="pol">
-                                        <option value="ZENSKO"></option>
-                                        <option value="MUSKO"></option>
+                                        <option value="ZENSKI"></option>
+                                        <option value="MUSKI"></option>
                                     </datalist>
                                 </td>
                             </tr>
@@ -185,40 +211,40 @@
                 <h4 style="color:antiquewhite">Sortiraj:</h4>
                 <form action="~/Sortiranja/OpadajuceNaziv" method="post">
 
-                   
-                                <input type="submit" value="opadajuce - naziv" />
-                           
+
+                    <input type="submit" value="opadajuce - naziv" />
+
                 </form>
                 <form action="~/Sortiranja/OpadajuceAdrese" method="post">
 
-                    
-                                <input type="submit" value="opadajuce - adresa" />
-                           
+
+                    <input type="submit" value="opadajuce - adresa" />
+
                 </form>
                 <form action="~/Sortiranja/OpadajuceGodine" method="post">
 
-                   
-                                <input type="submit" value="opadajuce - godine" />
-                          
-                  
-                </form>
-                <form  action="~/Sortiranja/RastuceNaziv" method="post">
 
-                  
-                                <input type="submit" value="rastuce - naziv" />
-                         
+                    <input type="submit" value="opadajuce - godine" />
+
+
+                </form>
+                <form action="~/Sortiranja/RastuceNaziv" method="post">
+
+
+                    <input type="submit" value="rastuce - naziv" />
+
                 </form>
                 <form action="~/Sortiranja/RastuceAdrese" method="post">
 
-                   
-                                <input type="submit" value="rastuce - adresa" />
-                           
-                </form>
-                <form action="~/Sortiranja/RastuceGodine" method="post" >
 
-                  
-                                <input type="submit" value="rastuce - godine" />
-                          
+                    <input type="submit" value="rastuce - adresa" />
+
+                </form>
+                <form action="~/Sortiranja/RastuceGodine" method="post">
+
+
+                    <input type="submit" value="rastuce - godine" />
+
                 </form>
             </div>
         </div>

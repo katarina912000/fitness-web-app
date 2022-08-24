@@ -7,7 +7,7 @@ namespace Projekat_WEB.Models
 {
     public class GrupniTrening
     {
-        public GrupniTrening(string naziv, int id, string tipTreninga, string fitnesCentar, int trajanjeTreninga, DateTime datumIVremeTreninga, int maxBrojPosetilaca, List<int> korisnici)
+        public GrupniTrening(string naziv, int id, string tipTreninga, string fitnesCentar, int trajanjeTreninga, DateTime datumIVremeTreninga, int maxBrojPosetilaca, List<int> korisnici,bool obrisan)
         {
             Id = id;
 
@@ -40,6 +40,7 @@ namespace Projekat_WEB.Models
         public DateTime DatumIVremeTreninga { get; set; }
         public int MaxBrojPosetilaca { get; set; }
         public List<int> Korisnici { get; set; }
+        public bool Obrisan { get; set; }
 
         private string UpisListi(List<int> objects)
         {
@@ -61,7 +62,7 @@ namespace Projekat_WEB.Models
 
         public override string ToString()
         {
-            return "Grupni trening"+";"+Id + ";" +TipTreninga+";"+FitnesCent+";"+TrajanjeTreninga+";"+DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm") +";"+MaxBrojPosetilaca+";"+UpisListi(Korisnici);
+            return "Grupni trening"+";"+Id + ";" +TipTreninga+";"+FitnesCent+";"+TrajanjeTreninga+";"+DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm") +";"+MaxBrojPosetilaca+";"+UpisListi(Korisnici)+Obrisan;
         }
 
 
