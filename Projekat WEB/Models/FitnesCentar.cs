@@ -7,7 +7,7 @@ namespace Projekat_WEB.Models
 {
     public class FitnesCentar
     {
-        public FitnesCentar(string ime, int id, string nazivUlice,int broj,string mesto,int postBroj, int godinaOtvaranja, string imeVlasnika,string prz, double cenaMesecneClanarine, double cenaGodisnjeClanarine, double cenaJednogTreninga, double cenaJednogGrupnogTreninga, double cenaJednogTrSaPersonalnimTr)
+        public FitnesCentar(string ime, int id, string nazivUlice,int broj,string mesto,int postBroj, int godinaOtvaranja, string imeVlasnika,string prz, double cenaMesecneClanarine, double cenaGodisnjeClanarine, double cenaJednogTreninga, double cenaJednogGrupnogTreninga, double cenaJednogTrSaPersonalnimTr,bool obrisan)
         {
             Id = id;
             Ime = ime;
@@ -43,6 +43,7 @@ namespace Projekat_WEB.Models
             CenaJednogTreninga = cenaJednogTreninga;
             CenaJednogGrupnogTreninga = cenaJednogGrupnogTreninga;
             CenaJednogTrSaPersonalnimTr = cenaJednogTrSaPersonalnimTr;
+            Obrisan = obrisan;
         }
 
         public FitnesCentar(){}
@@ -63,7 +64,11 @@ namespace Projekat_WEB.Models
         public double CenaJednogTreninga { get; set; }
         public double CenaJednogGrupnogTreninga { get; set; }
         public double CenaJednogTrSaPersonalnimTr { get; set; }
-        
+        public bool Obrisan { get; set; }
+        public override string ToString()
+        {
 
+            return Ime + ";" + Id + ";" + NazivUlice + ";" + BrojAdr + ";" + Mesto + ";" + PostBr + ";" + GodinaOtvaranja + ";" + ImeVl + ";" + Prz + ";" +CenaMesecneClanarine + ";" + CenaGodisnjeClanarine + ";" + CenaJednogTreninga + ";" + CenaJednogGrupnogTreninga + ";" +CenaJednogTrSaPersonalnimTr+";"+Obrisan;
+        }
     }
 }

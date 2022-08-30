@@ -27,7 +27,8 @@ namespace Projekat_WEB.Models
                 users[i].Id = korisnici[i];
                 
             }
-            Korisnici = korisnici;          
+            Korisnici = korisnici;
+            Obrisan = obrisan;     
         }
 
         public GrupniTrening() { }
@@ -62,7 +63,7 @@ namespace Projekat_WEB.Models
 
         public override string ToString()
         {
-            return "Grupni trening"+";"+Id + ";" +TipTreninga+";"+FitnesCent+";"+TrajanjeTreninga+";"+DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm") +";"+MaxBrojPosetilaca+";"+UpisListi(Korisnici)+Obrisan;
+            return "Grupni trening"+";"+Id + ";" +TipTreninga+";"+FitnesCent+";"+TrajanjeTreninga+";"+DatumIVremeTreninga.ToString("dd/MM/yyyy HH:mm") +";"+MaxBrojPosetilaca+";"+UpisListi(Korisnici)+";"+Obrisan;
         }
 
 

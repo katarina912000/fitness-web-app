@@ -5,29 +5,45 @@
 }
 @using Projekat_WEB.Models
 @model IEnumerable<GrupniTrening>
-
-<h2>KreirajTrening</h2>
-<form method="post" action="~/Trener/Kreiraj">
-    <table>
-        
-        @{ 
-            int count = Model.Count() + 1;
+<head>
+    <style>
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
         }
-        @if (ViewBag.Greska == null)
-        {
-            <tr>
-                <td>Naziv-id:</td>
-                <td>
-                    Grupni trening 
-                    <input type="number" name="id" value="@count" />
+
+        table, th, td {
+            border: 1px solid;
+            border-color: antiquewhite;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+
+</head>
+<body id="gradient">
+    <h2>KreirajTrening</h2>
+    <form method="post" action="~/Trener/Kreiraj">
+        <table>
+
+            @{
+                int count = Model.Count() + 1;
+            }
+            @if (ViewBag.Greska == null)
+            {
+                <tr>
+                    <td>Naziv-id:</td>
+                    <td>
+                        Grupni trening @count<input type="hidden" name="id" value="@count" />
+
                 </td>
             </tr>
-            <tr>
-                <td>Fitnes centar:</td>
-                <td>
-                    <input type="text" name="fitnesCent" />
-                </td>
-            </tr>
+
             <tr>
                 <td>Trajanje treninga:</td>
                 <td>
@@ -42,7 +58,8 @@
             </tr>
             <tr>
                 <td>Vreme treninga:</td>
-                <td><input type="time" name="vreme"/>
+                <td>
+                    <input type="time" name="vreme" />
                 </td>
             </tr>
             <tr>
@@ -71,17 +88,18 @@
                 </td>
             </tr>
 
-        }
-        else
-        {
-            <tr>
-                <td>@ViewBag.Greska</td>
-            </tr>
-        }
+            }
+            else
+            {
+                <tr>
+                    <td>@ViewBag.Greska</td>
+                </tr>
+            }
 
-    </table>
-</form>
-<h4 style="position:absolute; bottom:0;left:0">
-    Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
-</h4>   
+        </table>
+    </form>
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>
 
+    </body>

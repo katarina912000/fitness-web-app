@@ -101,34 +101,35 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
+             
             }
-
-            
-            
             var sortedList = gt1.OrderByDescending(x => x.Id).ToList();
 
             ViewBag.GtsTrenerZavrseni = sortedList;
-
-
-
-
+            
             List<GrupniTrening> gt2 = new List<GrupniTrening>();
 
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt2.Add(item);
+
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                        {
+                            gt2.Add(item);
+                        }
                     }
                 }
             }
@@ -150,34 +151,35 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
             }
-
-
 
             var sortedList = gt1.OrderBy(x => x.Id).ToList();
 
             ViewBag.GtsTrenerZavrseni = sortedList;
 
-
-
-
             List<GrupniTrening> gt2 = new List<GrupniTrening>();
 
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt2.Add(item);
+
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                        {
+                            gt2.Add(item);
+                        }
                     }
                 }
             }
@@ -199,11 +201,14 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
             }
@@ -217,12 +222,15 @@ namespace Projekat_WEB.Controllers
 
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt2.Add(item);
+
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                        {
+                            gt2.Add(item);
+                        }
                     }
                 }
             }
@@ -244,11 +252,14 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
             }
@@ -262,12 +273,15 @@ namespace Projekat_WEB.Controllers
 
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt2.Add(item);
+
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                        {
+                            gt2.Add(item);
+                        }
                     }
                 }
             }
@@ -289,11 +303,14 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
             }
@@ -305,14 +322,16 @@ namespace Projekat_WEB.Controllers
 
             List<GrupniTrening> gt2 = new List<GrupniTrening>();
 
-            foreach (var item in grupniTreninzi)
-            {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+            foreach (var item in grupniTreninzi) { 
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt2.Add(item);
+
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                        {
+                            gt2.Add(item);
+                        }
                     }
                 }
             }
@@ -334,11 +353,14 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
             }
@@ -352,12 +374,15 @@ namespace Projekat_WEB.Controllers
 
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikTrener != null)
                 {
-
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt2.Add(item);
+
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                        {
+                            gt2.Add(item);
+                        }
                     }
                 }
             }

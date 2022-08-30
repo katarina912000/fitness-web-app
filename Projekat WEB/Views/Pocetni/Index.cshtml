@@ -33,15 +33,30 @@
                 text-align:center">
                 Evidencija fitnes centara
        </p>
-        @{ 
-            if (Session["logedIn"] != null)
+        <div style="float:left">
+            @{  if (ViewBag.Greska != null)
             {
+                    <p style="color:antiquewhite">@ViewBag.Greska</p>
+                }
+
+            }
+            @if (Session["logedIn"] != null)
+            {
+                if (ViewBag.Ulogovan != null)
+                {
+                    <p style="color:antiquewhite">@ViewBag.Ulogovan</p>
+                }
+                else
+                {
+                    <p style="color:antiquewhite">Korisnik je ulogovan!</p>
+                }
                 Korisnik k = (Korisnik)Session["logedIn"];
-                <p style="color:antiquewhite">Korisnik je ulogovan!</p>
+
+
                 <form action="~/Pocetni/Edit" method="post">
-                    <input type="submit" value="Uredi i pregledaj svoj profil"/>
+                    <input type="submit" value="Uredi i pregledaj svoj profil" />
                 </form>
-                if(k.Uloga == "POSETILAC")
+                if (k.Uloga == "POSETILAC")
                 {
                     <form method="post" action="~/Posetilac/IstorijaTreninga">
                         <input type="submit" value="Istorija prijavljenih treninga" />
@@ -49,28 +64,29 @@
                 }
                 if (k.Uloga == "TRENER")
                 {
-                    
+
                     <form method="post" action="~/Trener/Prikazi">
-                        <input type="submit" value="Prikazi svoje  grupne treninge"/>
+                        <input type="submit" value="Prikazi svoje  grupne treninge" />
                     </form>
                     <form method="post" action="~/Trener/KreirajTrening">
                         <input type="submit" value="Kreiraj grupni trening" />
                     </form>
+
                 }
                 if (k.Uloga == "VLASNIK")
                 {
-                    if (ViewBag.Message != null)
-                    {
-                        <p>@ViewBag.Message</p><br />
-                    }
+
                     <form method="post" action="~/Vlasnik/RegistrujTrenera">
                         <input type="submit" value="Registruj novog trenera" />
                     </form>
-                    <form method="post">
+                    <form method="post" action="~/Vlasnik/PrikaziFitnesCentre">
                         <input type="submit" value="Prikazi svoje fitnes centre" />
                     </form>
-                    <form method="post">
-                        <input type="submit" value="Pristigli komentari" />
+                    <form method="post" action="~/Vlasnik/PregledKomentara">
+                        <input type="submit" value="Pregled komentara" />
+                    </form>
+                    <form method="post" action="~/Vlasnik/BlokirajTrenera">
+                        <input type="submit" value="Blokiraj trenera" />
                     </form>
                 }
 
@@ -82,18 +98,19 @@
             }
             else
             {
+
                 <div style="float:left">
                     <p style="color:antiquewhite">Registracija korisnika</p>
                     <form action="~/Registracija/Add" method="post">
                         <table>
                             <tr>
-                                <td style="color:antiquewhite">Username:</td>
+                                <td style="color:antiquewhite">Korisnicko ime:</td>
                                 <td>
                                     <input type="text" name="korisnickoime" />
                                 </td>
                             </tr>
                             <tr>
-                                <td style="color:antiquewhite">Password:</td>
+                                <td style="color:antiquewhite">Lozinka:</td>
                                 <td>
                                     <input type="password" name="lozinka" />
                                 </td>
@@ -113,11 +130,11 @@
                             <tr>
                                 <td style="color:antiquewhite">Pol:</td>
                                 <td>
-                                    <input list="pol" name="pol" />
-                                    <datalist id="pol">
-                                        <option value="ZENSKI"></option>
-                                        <option value="MUSKI"></option>
-                                    </datalist>
+                                    <input type="radio" id="zenski" name="pol" value="ZENSKI" />
+                                    <label for="zenski">ZENSKI</label><br />
+                                    <input type="radio" id="muski" name="pol" value="MUSKI" />
+                                    <label for="muski">MUSKI</label><br />
+
                                 </td>
                             </tr>
                             <tr>
@@ -163,12 +180,15 @@
                     </form>
                 </div>
             }
-        }
-        
-        
-       
-        <div style="float:right">
-            
+            }
+        </div>
+
+
+
+
+
+            <div style="float:right">
+
                 <table>
                     <tr>
                         <th>
@@ -182,9 +202,11 @@
                         </th>
                         <td></td>
                     </tr>
-                    @foreach(var item in Model)
+                    @foreach (var item in Model)
                     {
-                        <tr>
+                        if (item.Obrisan != true)
+                        {
+                            <tr>
                                 <td>
                                     @item.Ime
                                 </td>
@@ -193,75 +215,78 @@
                                 </td>
                                 <td>
                                     @item.GodinaOtvaranja
-                                </td>                          
+                                </td>
                                 <td>
                                     <form action="~/Pocetni/Detalji" method="post">
                                         <input type="hidden" name="id" value="@item.Id" />
                                         <input type="submit" value="Detalji" name="" />
-                                    </form>                               
-                                </td>                          
-                        </tr>
-                        
+                                    </form>
+                                </td>
+                            </tr>
+
+                        }
+
                     }
 
-            </table>
-            <div style="text-align:right">
+                </table>
+                <div style="text-align:right">
 
 
-                <h4 style="color:antiquewhite">Sortiraj:</h4>
-                <form action="~/Sortiranja/OpadajuceNaziv" method="post">
+                    <h4 style="color:antiquewhite">Sortiraj:</h4>
+                    <form action="~/Sortiranja/OpadajuceNaziv" method="post">
 
 
-                    <input type="submit" value="opadajuce - naziv" />
+                        <input type="submit" value="opadajuce - naziv" />
 
-                </form>
-                <form action="~/Sortiranja/OpadajuceAdrese" method="post">
-
-
-                    <input type="submit" value="opadajuce - adresa" />
-
-                </form>
-                <form action="~/Sortiranja/OpadajuceGodine" method="post">
+                    </form>
+                    <form action="~/Sortiranja/OpadajuceAdrese" method="post">
 
 
-                    <input type="submit" value="opadajuce - godine" />
+                        <input type="submit" value="opadajuce - adresa" />
+
+                    </form>
+                    <form action="~/Sortiranja/OpadajuceGodine" method="post">
 
 
-                </form>
-                <form action="~/Sortiranja/RastuceNaziv" method="post">
+                        <input type="submit" value="opadajuce - godine" />
 
 
-                    <input type="submit" value="rastuce - naziv" />
-
-                </form>
-                <form action="~/Sortiranja/RastuceAdrese" method="post">
+                    </form>
+                    <form action="~/Sortiranja/RastuceNaziv" method="post">
 
 
-                    <input type="submit" value="rastuce - adresa" />
+                        <input type="submit" value="rastuce - naziv" />
 
-                </form>
-                <form action="~/Sortiranja/RastuceGodine" method="post">
+                    </form>
+                    <form action="~/Sortiranja/RastuceAdrese" method="post">
 
 
-                    <input type="submit" value="rastuce - godine" />
+                        <input type="submit" value="rastuce - adresa" />
 
-                </form>
+                    </form>
+                    <form action="~/Sortiranja/RastuceGodine" method="post">
+
+
+                        <input type="submit" value="rastuce - godine" />
+
+                    </form>
+                </div>
             </div>
-        </div>
       
-        <div style="position:absolute;bottom: 10px">
-            <p style="color:antiquewhite">Pretražite fitnes centar po:</p>
-            <form action="~/Pretraga/PretragaKombinovano" method="post">
-                <table>
-                    <tr>
-                        <td>Nazivu:</td>
-                        <td>
-                            <input type="text" name="ime" />
-                        </td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Adresi:</td>
+            <div style="float:left">
+               
+                <form action="~/Pretraga/PretragaKombinovano" method="post">
+                    <table>
+                        <tr><th colspan="2">Pretražite fitnes centar po:</th></tr>
+                        <tr>
+                            <td>Nazivu:</td>
+                            <td>
+                                <input type="text" name="ime" />
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>Adresi:</td>
                         <tr>
                             <td>
                                 Ulica:
@@ -277,7 +302,7 @@
                             <td>
                                 <input type="text" name="brojUlice" />
                             </td>
-                            
+
                         </tr>
                         <tr>
                             <td>Mesto:</td>
@@ -286,35 +311,35 @@
 
                             </td>
                         </tr>
-               
-                    <tr>
-                        <td>
-                            Godina-od:
-                        </td>
-                        <td>
-                            <input type="text" name="godMin" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Godina-do:
-                        </td>
 
-                        <td>
-                            <input type="text" name="godMaks" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td  style="text-align:center"; colspan="2">
-                            <input type="submit" value="Pretraži" />
-                        </td>
-                    </tr>
-                </table>
-               
-            </form>
-           
-        </div>
-    </body>
+                        <tr>
+                            <td>
+                                Godina-od:
+                            </td>
+                            <td>
+                                <input type="text" name="godMin" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Godina-do:
+                            </td>
+
+                            <td>
+                                <input type="text" name="godMaks" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center" ; colspan="2">
+                                <input type="submit" value="Pretraži" />
+                            </td>
+                        </tr>
+                    </table>
+
+                </form>
+
+            </div>
+</body>
 </html>
 
 

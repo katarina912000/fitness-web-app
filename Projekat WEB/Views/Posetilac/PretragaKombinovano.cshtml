@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<h2>PretragaKombinovano</h2>
+<h2>Pretraga</h2>
 
 <head>
     <style>
@@ -66,6 +66,20 @@
                     <table>
                         @foreach (var gt in ViewBag.Gts)
                         {//tip treninga
+
+                            <tr>
+                                <td>
+                                    Ime grupnog treninga: @gt.Naziv @gt.Id
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                }
+                if (ViewBag.Grupni != null && ViewBag.Grupni.Count != 0)
+                {
+                    <table>
+                        @foreach (var gt in ViewBag.Grupni)
+                        {//godine
 
                             <tr>
                                 <td>

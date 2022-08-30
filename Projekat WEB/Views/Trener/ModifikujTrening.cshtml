@@ -5,22 +5,43 @@
 }
 @using Projekat_WEB.Models
 @model IEnumerable<GrupniTrening>
+<head>
+    <style>
+        table, th, td, tr {
+            border: 1px solid;
+            border-color: antiquewhite;
+            color: antiquewhite;
+        }
 
-<h2>Modifikuj trening</h2>
-<form action="~/Trener/EditConfirm" method="post">
-    <table>
-        @if (ViewBag.SesijaGT!=null)
-        {
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+    </style>
+</head>
+
+
+<body id="gradient">
+    <h2>Modifikuj trening</h2>
+    <form action="~/Trener/EditConfirm" method="post">
+        <table>
+            @if (ViewBag.SesijaGT != null)
+            {
                 <tr>
                     <td>Naziv-id:</td>
                     <td>
-                        Grupni trening <input type="number" value="@ViewBag.SesijaGT.Id" name="id" />
+                        Grupni trening @ViewBag.SesijaGT.Id
+                        <input type="hidden" value="@ViewBag.SesijaGT.Id"/>
                     </td>
                 </tr>
                 <tr>
                     <td>Fitnes centar:</td>
                     <td>
-                        <input type="text" value=@ViewBag.SesijaGT.FitnesCent name="fitnesCent" />
+                       @ViewBag.SesijaGT.FitnesCent
+                        <input type="hidden" value="@ViewBag.SesijaGT.FitnesCent" />
                     </td>
                 </tr>
                 <tr>
@@ -53,21 +74,18 @@
                         <input type="number" value=@ViewBag.SesijaGT.MaxBrojPosetilaca name="maksPosetilaca" />
                     </td>
                 </tr>
-               
-
-        <tr>
-            <td style="text-align:center" ; colspan="2">
-                <input type="submit" height="80" width="120" value="Potvrdi" />
-            </td>
-        </tr>
-        }
-    </table>
-</form>
-<h4>
-    Povratak na <a href="~/Trener/Index"> pocetnu stranicu</a>
-</h4>
 
 
+                <tr>
+                    <td style="text-align:center" ; colspan="2">
+                        <input type="submit" height="80" width="120" value="Potvrdi" />
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>
 
-
-
+</body>

@@ -3,63 +3,110 @@
     ViewBag.Title = "RegistrujTrenera";
     Layout = null;
 }
+@using Projekat_WEB.Models
+@model IEnumerable<Korisnik>
+<head>
+    <style>
 
-<p style="color:antiquewhite">Registracija trenera</p>
-<form action="~/Vlasnik/Add" method="post">
-    <table>
-        <tr>
-            <td style="color:antiquewhite">Username:</td>
-            <td>
-                <input type="text" name="korisnickoime" />
-            </td>
-        </tr>
-        <tr>
-            <td style="color:antiquewhite">Password:</td>
-            <td>
-                <input type="password" name="lozinka" />
-            </td>
-        </tr>
-        <tr>
-            <td style="color:antiquewhite">Ime:</td>
-            <td>
-                <input type="text" name="ime" />
-            </td>
-        </tr>
-        <tr>
-            <td style="color:antiquewhite">Prezime:</td>
-            <td>
-                <input type="text" name="prezime" />
-            </td>
-        </tr>
-        <tr>
-            <td style="color:antiquewhite">Pol:</td>
-            <td>
-                <input list="pol" name="pol" />
-                <datalist id="pol">
-                    <option value="ZENSKI"></option>
-                    <option value="MUSKI"></option>
-                </datalist>
-            </td>
-        </tr>
-        <tr>
-            <td style="color:antiquewhite">Email:</td>
-            <td>
-                <input type="text" name="email" />
-            </td>
-        </tr>
-        <tr>
-            <td style="color:antiquewhite">Datum rodjenja:</td>
-            <td>
-                <input type="date" name="godinaRodjenja"
-                       min="1970-01-01" max="2022-12-31">
-            </td>
-        </tr>
+    
+    #gradient {
 
-        <tr>
-            <td style="text-align:center" ; colspan="2">
-                <input type="submit" value="Registruj" />
-            </td>
-        </tr>
+    max-width: 100%;
+    max-height: 100%;
+    background-color: gray;
+    color: white;
+    background-image: linear-gradient(-90deg, #808080,#000000);
+    }
+    </style>
+</head>
+<body id="gradient">
 
-    </table>
-</form>
+
+    <p style="color:antiquewhite">Registracija trenera</p>
+    
+    @{
+        if (ViewBag.Message != null)
+        {
+            <p style="color:antiquewhite">@ViewBag.Message</p><br />
+        }
+        if (ViewBag.Greska != null)
+        {
+            <p style="color:antiquewhite">@ViewBag.Greska</p><br />
+        }
+    }
+    @{
+        Korisnik k = (Korisnik)Session["logedIn"];
+        <p>Vi ste vlasnik sledecih fitnes centara: </p>
+        foreach (var item in k.FitnesCentriVlasnik)
+        {
+            <p>@item</p><br />
+        }
+    }
+    <form action="~/Vlasnik/Add" method="post">
+        <table>
+            <tr>
+                <td style="color:antiquewhite">Korisnicko ime:</td>
+                <td>
+                    <input type="text" name="korisnickoime" />
+                </td>
+            </tr>
+            <tr>
+                <td style="color:antiquewhite">Lozinka:</td>
+                <td>
+                    <input type="password" name="lozinka" />
+                </td>
+            </tr>
+            <tr>
+                <td style="color:antiquewhite">Ime:</td>
+                <td>
+                    <input type="text" name="ime" />
+                </td>
+            </tr>
+            <tr>
+                <td style="color:antiquewhite">Prezime:</td>
+                <td>
+                    <input type="text" name="prezime" />
+                </td>
+            </tr>
+            <tr>
+                <td style="color:antiquewhite">Pol:</td>
+                <td>
+                    <input list="pol" name="pol" />
+                    <datalist id="pol">
+                        <option value="ZENSKI"></option>
+                        <option value="MUSKI"></option>
+                    </datalist>
+                </td>
+            </tr>
+            <tr>
+                <td style="color:antiquewhite">Email:</td>
+                <td>
+                    <input type="text" name="email" />
+                </td>
+            </tr>
+            <tr>
+                <td style="color:antiquewhite">Fitnes centar:</td>
+                <td>
+                    <input type="text" name="fitnesCentar" />
+                </td>
+            </tr>
+            <tr>
+                <td style="color:antiquewhite">Datum rodjenja:</td>
+                <td>
+                    <input type="date" name="godinaRodjenja"
+                           min="1970-01-01" max="2022-12-31">
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align:center" ; colspan="2">
+                    <input type="submit" value="Registruj" />
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>  
+</body>

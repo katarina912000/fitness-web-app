@@ -1,8 +1,11 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = null;
 }
 
-<h2>Index</h2>
-<p>@ViewBag.Greska</p>
+@if (ViewBag.Greska != null)
+{
+    <p>@ViewBag.Greska</p>
+}
 

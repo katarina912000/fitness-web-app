@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "PregledKomentara";
+    Layout = null;
+}
+@using Projekat_WEB.Models
+@model IEnumerable<Komentar>
+
+<head>
+    <style>
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+
+        table, th, td {
+            border: 1px solid;
+            border-color: antiquewhite;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+
+</head>
+<body id="gradient">
+ <h3> Pregled komentara vaseg fitnes centra</h3>
+        <table>
+            <tr><th>Tekst komentara</th><th>Ocena</th><th>Stanje</th></tr>
+            
+            @foreach(var item in Model)
+            {
+                
+                <tr>
+                    <td>
+                        @item.TekstKomentara
+                    </td>
+                    <td>@item.Ocena</td>
+                    @if (item.Stanje == 1)
+                    {
+                        <td>Odobreno</td>
+                    }else if (item.Stanje == 0)
+                    {
+                        <td>Odbijeno</td>
+                    }else if (item.Stanje == 2)
+                    {
+                        <td> <form action="~/Vlasnik/StanjeOdobri" method="post">
+                            <input type="hidden" value="@item.Id" name="id" />
+                            <input type="submit" value="Odobri" /></form>
+
+                            <form action="~/Vlasnik/StanjeOdbij" method="post">
+                                <input type="hidden" value="@item.Id" name="id" />
+                                <input type="submit" value="Odbij" />
+                            </form>
+                        </td>
+                    }
+                </tr>
+            }
+
+        </table>
+    
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>   
+
+</body>

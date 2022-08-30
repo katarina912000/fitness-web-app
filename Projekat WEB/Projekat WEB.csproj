@@ -176,7 +176,6 @@
     <Content Include="App_Data\GrupniTreninzi.txt" />
     <Content Include="App_Data\Komentari.txt" />
     <Content Include="App_Data\Korisnici.txt" />
-    <Content Include="App_Data\KorisniciNew.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Slike\fitnes1.jpg" />
@@ -223,9 +222,6 @@
     <Content Include="Views\Pocetni\Detalji.cshtml" />
     <Content Include="Views\Pretraga\PretragaNaziv.cshtml" />
     <Content Include="Views\Pretraga\PretragaGodine.cshtml" />
-    <Content Include="Views\Registracija\Add.cshtml" />
-    <Content Include="Views\Registracija\Index.cshtml" />
-    <Content Include="Views\Registracija\Login.cshtml" />
     <Content Include="Views\Pocetni\Edit.cshtml" />
     <Content Include="Views\Posetilac\Index.cshtml" />
     <Content Include="Views\Posetilac\PretragaKombinovano.cshtml" />
@@ -236,6 +232,11 @@
     <Content Include="Views\Trener\SpisakPosetilaca.cshtml" />
     <Content Include="Views\Trener\PretragaKombinovano.cshtml" />
     <Content Include="Views\Vlasnik\RegistrujTrenera.cshtml" />
+    <Content Include="Views\Vlasnik\PrikaziFitnesCentre.cshtml" />
+    <Content Include="Views\Vlasnik\ModifikovanjeFitnesCentra.cshtml" />
+    <Content Include="Views\Vlasnik\BlokirajTrenera.cshtml" />
+    <Content Include="Views\Vlasnik\PregledKomentara.cshtml" />
+    <Content Include="Views\Registracija\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\New\" />

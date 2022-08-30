@@ -7,72 +7,105 @@
 @model IEnumerable<Korisnik>
 <h2>Izmeni podatke</h2>
 
-
-<form action="~/Pocetni/EditConfirm" method="post"> 
-<table>
-    @{if (ViewBag.Sesija != null)
-        {
-            <tr>
-                <td>Ime:</td>
-                <td>
-                    <input type="text" value=@ViewBag.Sesija.Ime name="ime" />
-                </td>
-            </tr>
-            <tr>
-                <td>Prezime:</td>
-                <td>
-                    <input type="text" value=@ViewBag.Sesija.Prezime name="prezime" />
-                </td>
-            </tr>
-            <tr>
-                <td>Korisnicko ime:</td>
-                <td>
-                    <input type="text" value=@ViewBag.Sesija.KorisnickoIme name="korIme" />
-                </td>
-            </tr>
-            <tr>
-                <td>Lozinka:</td>
-                <td>
-                    <input type="text" value=@ViewBag.Sesija.Lozinka name="lozinka" />
-                </td>
-            </tr>
-            <tr>
-                <td>Pol:</td>
-                <td>
-                    <input list="pol" name="pol" value="@ViewBag.Sesija.Pol" />
-                    <datalist id="pol">
-                        <option value="ZENSKO"></option>
-                        <option value="MUSKO"></option>
-                    </datalist>
-                </td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td>
-                    <input type="text" value=@ViewBag.Sesija.Email name="email" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Datum rodjenja:
-                </td>
-                <td>
-                    <input type="text" value="@ViewBag.Sesija.GodinaRodjenja.ToString("dd/MM/yyyy HH:mm")" name="datumRodj" />
-                </td>
-            </tr>
-            }
+<head>
+    <style>
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
         }
-          <tr>
-              <td style="text-align:center" ; colspan="2">
-                  <input type="submit" height="80" width="120" value="Potvrdi" />
-              </td>
-          </tr>
+
+        table, th, td {
+            border: 1px solid;
+            border-color: antiquewhite;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+
+</head>
+<body id="gradient">
+    <form action="~/Pocetni/EditConfirm" method="post">
+        <table>
+            @{if (ViewBag.Sesija != null)
+                {
+                    <tr>
+                        <td>Ime:</td>
+                        <td>
+                            <input type="text" value=@ViewBag.Sesija.Ime name="ime" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Prezime:</td>
+                        <td>
+                            <input type="text" value=@ViewBag.Sesija.Prezime name="prezime" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Korisnicko ime:</td>
+                        <td>
+                            <input type="text" value=@ViewBag.Sesija.KorisnickoIme name="korIme" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Lozinka:</td>
+                        <td>
+                            <input type="text" value=@ViewBag.Sesija.Lozinka name="lozinka" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Pol:</td>
+                        <td>
+                           
+                       @if (ViewBag.Sesija.Pol == "MUSKI")
+                       {
                         
- </table>
-</form>
-<h4>
-    Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
-</h4>   
+                        <label>MUSKI</label><br />
+                        <input type="hidden" value=@ViewBag.Sesija.Pol name="pol" />
+                       }
+                       else
+                       {
+
+                            <label >ZENSKI</label><br />
+                            <input type="hidden" value=@ViewBag.Sesija.Pol name="pol" />
 
 
+                       }
+                          
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td>
+                            <input type="text" value=@ViewBag.Sesija.Email name="email" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Datum rodjenja:
+                        </td>
+                        <td>
+                            <input type="text" value="@ViewBag.Sesija.GodinaRodjenja.ToString("dd/MM/yyyy HH:mm")" name="datumRodj" />
+                        </td>
+                    </tr>
+                }
+            }
+            <tr>
+                <td style="text-align:center" ; colspan="2">
+                    <input type="submit" height="80" width="120" value="Potvrdi" />
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>
+
+
+</body>

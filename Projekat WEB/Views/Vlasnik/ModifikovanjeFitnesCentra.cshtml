@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "ModifikovanjeFitnesCentra";
+    Layout = null;
+}
+<h2>Modifikacija fitnes centra</h2>
+<head>
+    <style>
+        table, th, td, tr {
+            border: 1px solid;
+            border-color: antiquewhite;
+            color: antiquewhite;
+        }
+
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+    </style>
+</head>
+
+
+<body id="gradient">
+    <h2>Detalji fitnes centra: @ViewBag.Data.Ime</h2>
+    @if (ViewBag.Greska != null)
+    {
+        <p>@ViewBag.Greska</p>
+    }
+    <form action="~/Vlasnik/Izmeni" method="post">
+        <table>
+            <tr>
+                <td>
+                    Naziv:
+
+                </td>
+                <td>
+                    <input type="text" name="ime" value="@ViewBag.Data.Ime" />
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    Adresa:
+
+                </td>
+                <td>
+                    naziv ulice-<input type="text" name="nazivUlice" value="@ViewBag.Data.NazivUlice" />
+                    broj-<input type="number" name="broj" value="@ViewBag.Data.BrojAdr" />
+                    mesto-<input type="text" name="mesto" value="@ViewBag.Data.Mesto" />
+                    postanski broj-<input type="number" name="postBroj" value="@ViewBag.Data.PostBr" />
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Godina otvaranja:
+
+                </td>
+                <td>
+                    <input type="number" name="godina" value="@ViewBag.Data.GodinaOtvaranja" />
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Cena mesecne clanarine:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaMesecneCl" value="@ViewBag.Data.CenaMesecneClanarine" />
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Cena godisnje clanarine:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaGodisnjeCl" value="@ViewBag.Data.CenaGodisnjeClanarine" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cena jednog treninga:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaJednogTr" value="@ViewBag.Data.CenaJednogTreninga" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cena jednog grupnog treninga:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaJednogGrupnogTr" value="@ViewBag.Data.CenaJednogGrupnogTreninga" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cena jednog treninga sa personalnim trenerom:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaJednogTrsaPersonalnimTr" value="@ViewBag.Data.CenaJednogTrSaPersonalnimTr" />
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align:center" ; colspan="2">
+                <input type="hidden" value="@ViewBag.Data.Id" name="id" />
+                <input type="submit" value="Izmeni" /></td>
+            </tr>
+
+        </table>
+    </form>
+    
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>  
+</body>

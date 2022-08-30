@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "PrikaziFitnesCentre";
+    Layout = null;
+}
+<head>
+    <style>
+         table,th,td,tr{
+                border: 1px solid;
+                border-color: antiquewhite;
+                color: antiquewhite;
+            }
+          #gradient {
+          
+          max-width: 100%;
+          max-height: 100%;
+          background-color: gray; 
+          color: white;
+          background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+    </style>
+</head>
+
+
+<body id="gradient">
+    @if (ViewBag.Message != null)
+    {
+        <p>@ViewBag.Message</p>
+    }
+    @if (ViewBag.Greska != null)
+    {
+        <p>@ViewBag.Greska</p>
+    }
+        <table>
+            <tr>
+                <th>
+                    Naziv
+                </th>
+                <th>
+                    Adresa
+                </th>
+                <th>
+                    Godina otvaranja
+                </th>
+                <td></td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Ime
+                    </td>
+                    <td>
+                        @item.NazivUlice @item.BrojAdr,@item.Mesto
+                    </td>
+                    <td>
+                        @item.GodinaOtvaranja
+                    </td>
+                  <td>
+                      <form action="~/Vlasnik/ModifikovanjeFitnesCentra" method="post">
+                          <input type="hidden" name="id" value="@item.Id" />
+                          <input type="submit" value="Modifikuj fitnes centar" name="" />
+                      </form>    
+                      <form action="~/Vlasnik/BrisanjeFC" method="post">
+                          <input type="hidden" name="id" value="@item.Id" />
+                          <input type="submit" value="Obrisi fitnes centar" name="" />
+                      </form>          
+                  </td>
+                </tr>
+
+            }
+
+        </table>
+    <h4>
+        Kreiraj novi fitnes centar:
+    </h4>
+   
+    <form action="~/Vlasnik/KreirajFC" method="post">
+        <table>
+            <tr>
+                <td>
+                    Naziv:
+
+                </td>
+                <td>
+                    <input type="text" name="ime"  />
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>
+                    Adresa:
+
+                </td>
+                <td>
+                    naziv ulice-<input type="text" name="nazivUlice" />
+                    broj-<input type="number" name="broj"  />
+                    mesto-<input type="text" name="mesto"/>
+                    postanski broj-<input type="number" name="postBroj"/>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    Godina otvaranja:
+
+                </td>
+                <td>
+                    <input type="number" name="godina" />
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Cena mesecne clanarine:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaMesecneCl" />
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Cena godisnje clanarine:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaGodisnjeCl"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cena jednog treninga:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaJednogTr" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cena jednog grupnog treninga:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaJednogGrupnogTr" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Cena jednog treninga sa personalnim trenerom:
+
+                </td>
+                <td>
+                    <input type="number" name="cenaJednogTrsaPersonalnimTr" />
+                </td>
+            </tr>
+
+            <tr>
+                <td style="text-align:center" ; colspan="2">
+                    
+                    <input type="submit" value="Kreiraj" />
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>  
+</body>

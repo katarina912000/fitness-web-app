@@ -82,6 +82,17 @@
                         </datalist>
                     </td>
                 </tr>
+                <tr><td>
+                        Godini od-do:
+                    </td>
+                    <td>
+                        <input type="number" name="godinaOd" min="1970" max="2021"/>
+                    
+                        <input type="number" name="godinaDo"min="1971" max="2022" />
+                    
+                    </td>
+                </tr>
+               
                 <tr>
                     <td style="text-align:center" ; colspan="2">
                         <input type="submit" value="Pretraži" />
@@ -155,7 +166,7 @@
                             
                                 @foreach (var it in ViewBag.Korisnici)
                                 {
-                                    if (it.Uloga == UlogaEnum.Uloga.POSETILAC)
+                                    if (it.Uloga == "POSETILAC" && it.GrupniTreninziKorisnikPrijavljen!=null)
                                     {
                                         for (int i = 0; i < it.GrupniTreninziKorisnikPrijavljen.Count; i++)
                                         {

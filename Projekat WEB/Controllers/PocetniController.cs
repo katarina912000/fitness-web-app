@@ -78,9 +78,7 @@ namespace Projekat_WEB.Controllers
             if (k.GodinaRodjenja.ToString() != datumRodj)
             {
                 DateTime datetime = DateTime.ParseExact(datumRodj, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
-                // DateTime date=Convert.ToDateTime(datumRodj);
-                //DateTime oDate = DateTime.ParseExact(datumRodj, "dd/MM/yyyy", null);
-               // DateTime dat = DateTime.Parse(datumRodj);
+              
                 k.GodinaRodjenja = datetime;
             }
 
@@ -110,7 +108,7 @@ namespace Projekat_WEB.Controllers
             List<FitnesCentar> fitnesCentri = new List<FitnesCentar>();
 
             string text = System.IO.File.ReadAllText(Server.MapPath("~/App_Data/FitnesCentri.txt"));
-            string[] lines = text.Split('\n');//tu su sad 3 stringa 3 linije
+            string[] lines = text.Split('\r');//tu su sad 3 stringa 3 linije
 
             List<string> nazivi = new List<string>();
             //prvo sortiranje rastuce imena
@@ -135,39 +133,56 @@ namespace Projekat_WEB.Controllers
                     if (nazivi[i] == lines[j].Split(';')[0])
                     {
                         string oneLine = lines[j];
-                        string[] konacno = oneLine.Split(';');
-                        var id = Int32.Parse(konacno[1]);
-                        var broj = Int32.Parse(konacno[3]);
-                        var postBroj = Int32.Parse(konacno[5]);
-                        var godOtvaranja = Int32.Parse(konacno[6]);
-                        var cenaMesecneCl = Double.Parse(konacno[9]);
-                        var cenaGodisnjeCl = Double.Parse(konacno[10]);
-                        var cenaJednogTr = Double.Parse(konacno[11]);
-                        var cenaJednogGrunogTr = Double.Parse(konacno[12]);
-                        var cenaPersTr = Double.Parse(konacno[13]);
+                        if (oneLine != "")
+                        {
+                            string[] konacno = oneLine.Split(';');
+                            
+                            var id = Int32.Parse(konacno[1]);
+                            var broj = Int32.Parse(konacno[3]);
+                            var postBroj = Int32.Parse(konacno[5]);
+                            var godOtvaranja = Int32.Parse(konacno[6]);
+                            var cenaMesecneCl = Double.Parse(konacno[9]);
+                            var cenaGodisnjeCl = Double.Parse(konacno[10]);
+                            var cenaJednogTr = Double.Parse(konacno[11]);
+                            var cenaJednogGrunogTr = Double.Parse(konacno[12]);
+                            var cenaPersTr = Double.Parse(konacno[13]);
+                            
+                                fc.Ime = konacno[0];
+                                fc.Id = id;
+                                fc.NazivUlice = konacno[2];
+                                fc.BrojAdr = broj;
+                                fc.Mesto = konacno[4];
+                                fc.PostBr = postBroj;
+                                fc.GodinaOtvaranja = godOtvaranja;
+                                fc.ImeVl = konacno[7];
+                                fc.Prz = konacno[8];
+                                fc.KorisnickoImeVlasnika = konacno[7] + konacno[8];
+                                fc.CenaMesecneClanarine = cenaMesecneCl;
+                                fc.CenaGodisnjeClanarine = cenaGodisnjeCl;
+                                fc.CenaJednogTreninga = cenaJednogTr;
+                                fc.CenaJednogGrupnogTreninga = cenaJednogGrunogTr;
+                                fc.CenaJednogTrSaPersonalnimTr = cenaPersTr;
+                                fc.Obrisan = Boolean.Parse(konacno[14]);
 
-                        fc.Ime = konacno[0];
-                        fc.Id = id;
-                        fc.NazivUlice = konacno[2];
-                        fc.BrojAdr = broj;
-                        fc.Mesto = konacno[4];
-                        fc.PostBr = postBroj;
-                        fc.GodinaOtvaranja = godOtvaranja;
-                        fc.ImeVl = konacno[7];
-                        fc.Prz = konacno[8];
-                        fc.KorisnickoImeVlasnika = konacno[7] + konacno[8];
-                        fc.CenaMesecneClanarine = cenaMesecneCl;
-                        fc.CenaGodisnjeClanarine = cenaGodisnjeCl;
-                        fc.CenaJednogTreninga = cenaJednogTr;
-                        fc.CenaJednogGrupnogTreninga = cenaJednogGrunogTr;
-                        fc.CenaJednogTrSaPersonalnimTr = cenaPersTr;
-
-                        break;
+                                break;
+                            
+                       
+                        }
+                       
                     }
                 }
-                    
 
-                fitnesCentri.Add(fc);
+                if (fc.Obrisan != true)
+                {
+                    fitnesCentri.Add(fc);
+                }
+                if (fc.Ime.Equals(""))
+                {
+                    fitnesCentri.Remove(fc);
+                }
+
+
+
 
             }
             HttpContext.Application["fitnesCentri"] = fitnesCentri;
@@ -195,14 +210,15 @@ namespace Projekat_WEB.Controllers
                     { 
                         ViewBag.Data = fc;
 
-                        for (int i = 0; i < gt.Count; i++)
+                    for (int i = 0; i < gt.Count; i++)
+                    {
+                        if (fc.Ime == gt[i].FitnesCent)
                         {
-                            if (fc.Ime == gt[i].FitnesCent)
-                            {
-                                gtFC.Add(gt[i]);
-                            
-                            }
-                        if (kor != null && kor.Uloga=="POSETILAC")
+                            gtFC.Add(gt[i]);
+
+                        }
+                    
+                        if (kor != null && kor.Uloga=="POSETILAC"&&kor.GrupniTreninziKorisnikPrijavljen!=null)
                         {
                             for (int q = 0; q < kor.GrupniTreninziKorisnikPrijavljen.Count; q++)
                             {
@@ -236,10 +252,11 @@ namespace Projekat_WEB.Controllers
                 {
                     for (int l = 0; l < kom.Count; l++)
                     {
-                        if (k.Id == kom[l].PosetilacKojiKomentarise)
-                        {
-                            korisnici2.Add(k);
-                        }
+                    if (k.Id == kom[l].PosetilacKojiKomentarise)
+                    {
+                        korisnici2.Add(k);
+                    }
+                        
                     }
                 }
 
@@ -273,12 +290,14 @@ namespace Projekat_WEB.Controllers
                         var idd = Int32.Parse(konacno[0]);
                         var idPosetioca = Int32.Parse(konacno[1]);
                         var ocenaa = Int32.Parse(konacno[4]);
+                        var stanjee = Int32.Parse(konacno[5]);
 
                         k.Id = idd;
                         k.PosetilacKojiKomentarise = idPosetioca;
                         k.FitnesCentarKomentar = konacno[2];
                         k.TekstKomentara = konacno[3];
                         k.Ocena = ocenaa;
+                        k.Stanje = stanjee;
                         
                         komentari.Add(k);
                     }
@@ -312,8 +331,13 @@ namespace Projekat_WEB.Controllers
                         var datum = konacno[5];
                         DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
                         var maksBrPoset = Int32.Parse(konacno[6]);
-                        var obrisan = bool.Parse(konacno[7]);
-
+                        var obrisan = bool.Parse(konacno[8]);
+                        if (konacno[7] != "")
+                        {
+                            string[] idsgtt = konacno[7].Split(',');//1,2 ->tu su sad 1 i 2                  
+                            int[] idsGt = Array.ConvertAll(idsgtt, s => int.Parse(s));
+                            gp.Korisnici = idsGt.ToList();
+                        }
                         gp.Naziv = konacno[0];
                             gp.Id = idd;
                             gp.TipTreninga = konacno[2];
@@ -321,6 +345,7 @@ namespace Projekat_WEB.Controllers
                             gp.DatumIVremeTreninga = datetime;
                             gp.TrajanjeTreninga = trajanjeTr;
                             gp.MaxBrojPosetilaca = maksBrPoset;
+
                         gp.Obrisan = obrisan;
                             grupniTr.Add(gp);
                         
@@ -365,13 +390,13 @@ namespace Projekat_WEB.Controllers
                                     var datum = konacno[5];
                                     DateTime datetime = DateTime.ParseExact(datum, "dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
                                     var maksBrPoset = Int32.Parse(konacno[6]);
-                                //string[] idsKor = konacno[7].Split(',');//1,2 ->tu su sad 1 i 2
-                                //if (idsKor[0] != "")
-                                //{
-                                //    int[] idsKoris = Array.ConvertAll(idsKor, s => int.Parse(s));
-                                //    gp.Korisnici = idsKoris.ToList();
-                                //}
-                                var obrisan = bool.Parse(konacno[7]);
+                                if (konacno[7] != "")
+                                {
+                                    string[] idsgtt = konacno[7].Split(',');//1,2 ->tu su sad 1 i 2                  
+                                    int[] idsGt = Array.ConvertAll(idsgtt, s => int.Parse(s));
+                                    gp.Korisnici = idsGt.ToList();
+                                }
+                                var obrisan = bool.Parse(konacno[8]);
 
                                 gp.Naziv = konacno[0];
                                     gp.Id = idd;
@@ -407,7 +432,7 @@ namespace Projekat_WEB.Controllers
         }
 
         //upis korisnika
-        //popraviti upis da bude iz korisnici new
+       
         public List<Korisnik> UpisIzBazeKorisnici()
         {
 
@@ -423,7 +448,7 @@ namespace Projekat_WEB.Controllers
             {
                 string oneLine = lines[i];
                 string[] konacno = oneLine.Split(';');
-                if (oneLine != "")
+                if (oneLine != "" && oneLine!="\n")
                 {
                     Korisnik k = new Korisnik();
 

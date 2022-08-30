@@ -126,8 +126,6 @@ namespace Projekat_WEB.Controllers
                     ViewBag.Message = "Niste uneli broj.";
                 }
             
-           
-            
         }
     }
 }

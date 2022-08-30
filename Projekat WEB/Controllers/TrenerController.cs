@@ -57,14 +57,15 @@ namespace Projekat_WEB.Controllers
         }
         bool  valja2, valja3, valja4, valja5 = false;
         [HttpPost]
-        public ActionResult Kreiraj( string id,string fitnesCent, string trajanje, string datum,string vreme, string tip, string maksPosetilaca)
+        public ActionResult Kreiraj( string id, string trajanje, string datum,string vreme, string tip, string maksPosetilaca)
         {
             List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
             GrupniTrening gt = new GrupniTrening();
             List<FitnesCentar> fitnesCentri = (List<FitnesCentar>)HttpContext.Application["fitnesCentri"];
+            Korisnik k = (Korisnik)Session["logedIn"];
 
-           
-            if (fitnesCent!="" && trajanje != "" && datum!="" && vreme!="" && tip != "" && maksPosetilaca != "")
+
+            if (trajanje != "" && datum!="" && vreme!="" && tip != "" && maksPosetilaca != "")
             {
                 //znaci da su sva polja unesena
                 int idd;
@@ -78,21 +79,11 @@ namespace Projekat_WEB.Controllers
 
                 string datumIvreme = datum +" "+ vreme;
                 DateTime date = DateTime.Parse(datumIvreme);
-               
-
-                for (int i=0;i<grupniTreninzi.Count;i++) 
-                {
                     gt.Id = idd;
-                    if (fitnesCentri.Exists(x => x.Ime.Equals(fitnesCent)))
-                    {
-                        gt.FitnesCent = fitnesCent;
-                        valja2 = true;
-                    }
-                    else
-                    {
-                        ViewBag.Greska += ", i ne postoji takav fitnes centar u bazi";
-                    }
-
+                
+                   gt.FitnesCent =k.AngazovanTrenerFitnesCentra ;
+                      
+                   
                     if (trajanj > 0 && trajanj <= 60)
                     {
                         gt.TrajanjeTreninga = trajanj;
@@ -128,19 +119,36 @@ namespace Projekat_WEB.Controllers
                     {
                         ViewBag.Greska += ", i maksimalan broj posetioca treba da je broj pozitivan i  manji od 50";
                     }
-
-                }
-
+                    
             }
             else
             {
                 ViewBag.Greska = "Nisu sva polja popunjena.";
             }
-            if (valja2 && valja3 && valja4 && valja5)
+            if (valja3 && valja4 && valja5)
             {
                 grupniTreninzi.Add(gt);
+
+                string text = null;
+                var path1 = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\GrupniTreninzi.txt";
+
+                foreach (var kor in grupniTreninzi)
+                {
+                    text += kor.ToString();
+                    if (kor.Id.ToString() != "\r")
+                    {
+                        text += "\r";
+                    }
+                }
+
+                System.IO.File.WriteAllText(path1, text);
+
+                HttpContext.Application["grupniTreninzi"] = grupniTreninzi;
             }
-            Korisnik k = (Korisnik)Session["logedIn"];
+            if (k.GrupniTreninziKorisnikTrener == null)
+            {
+                k.GrupniTreninziKorisnikTrener = new List<int>();
+            }
             k.GrupniTreninziKorisnikTrener.Add(Int32.Parse(id));
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
 
@@ -159,21 +167,6 @@ namespace Projekat_WEB.Controllers
 
             System.IO.File.WriteAllText(path2, text1);
 
-            string text = null;
-            var path1 = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\GrupniTreninzi.txt";
-
-            foreach (var kor in grupniTreninzi)
-            {
-                text += kor.ToString();
-                if (kor.Id.ToString() != "\r")
-                {
-                    text += "\r";
-                }
-            }
-
-            System.IO.File.WriteAllText(path1, text);
-
-            HttpContext.Application["grupniTreninzi"] = grupniTreninzi;
             return View("KreirajTrening",grupniTreninzi);
         }
 
@@ -205,14 +198,11 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
 
             GrupniTrening gt1 = (GrupniTrening)Session["logTr"];
-            if (gt1.Id!=id)
-            {
+           
                 gt1.Id = id;
-            }
-            if (gt1.FitnesCent.ToLower() != fitnesCent.ToLower())
-            {
+           
                 gt1.FitnesCent = fitnesCent;
-            }
+           
             if (gt1.TrajanjeTreninga != trajanje)
             {
                 gt1.TrajanjeTreninga = trajanje;
@@ -259,21 +249,24 @@ namespace Projekat_WEB.Controllers
             //prosledjen je id od tog gt
             List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
-           
-            foreach (GrupniTrening gt in grupniTreninzi)
+            Korisnik k = (Korisnik)Session["logedIn"];
+            foreach (GrupniTrening gt4 in grupniTreninzi)
             {
-                foreach(var k in korisnici)
+                foreach(var ko in korisnici)
                 {
-                    if (k.Uloga == "POSETILAC")
+                    if (ko.Uloga == "POSETILAC"&& ko.GrupniTreninziKorisnikPrijavljen!=null)
                     {
-                        for (int i = 0; i < k.GrupniTreninziKorisnikPrijavljen.Count; i++)
+                        for (int i = 0; i < ko.GrupniTreninziKorisnikPrijavljen.Count; i++)
                         {
-                            if (gt.Id == id)
+                            if (gt4.Id == id)
                             {
-                                gt.Obrisan = true;
+                                gt4.Obrisan = true;
+                                k.GrupniTreninziKorisnikTrener.Remove(id);
+                                
                             }
                         }
                     }
+                    
                 }
                
             }
@@ -281,29 +274,33 @@ namespace Projekat_WEB.Controllers
             string text = null;
             var path1 = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\GrupniTreninzi.txt";
 
-            foreach (GrupniTrening gt in grupniTreninzi)
+            foreach (GrupniTrening gt1 in grupniTreninzi)
             {
-                text += gt.ToString();
-                if (gt.Id.ToString() != "\r")
+                text += gt1.ToString();
+                if (gt1.Id.ToString() != "\r")
                 {
                     text += "\r";
                 }
             }
-
             System.IO.File.WriteAllText(path1, text);
+            //ispis korisnika
+            string text1 = null;
+            var path = @"C:\Users\dabet\source\repos\Projekat WEB\Projekat WEB\App_Data\Korisnici.txt";
 
-            return View("Index");
-        }
-        [HttpPost]
-
-        public ActionResult Prikazi()
-        {
-            Korisnik k = (Korisnik)Session["logedIn"];
-            List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
-            List<GrupniTrening> gt = new List<GrupniTrening>();
-            foreach(var item in grupniTreninzi)
+            foreach (var gt1 in korisnici)
             {
-                for(int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                text1 += gt1.ToString();
+                if (gt1.Id.ToString() != "\r")
+                {
+                    text1 += "\r";
+                }
+            }
+            System.IO.File.WriteAllText(path, text1);
+
+            List<GrupniTrening> gt = new List<GrupniTrening>();
+            foreach (var item in grupniTreninzi)
+            {
+                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                 {
                     if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
                     {
@@ -319,17 +316,61 @@ namespace Projekat_WEB.Controllers
             {
                 for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                 {
-                    
-                    if (k.Uloga=="POSETILAC" && k.GrupniTreninziKorisnikPrijavljen[i] == item.Id)
-                    {
-                        ViewBag.PrijavljenPosetilac = "Posetilac je prijavljen";
-                        break;
-                    }
+
                     if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
                     {
                         gt2.Add(item);
                     }
                 }
+            }
+            ViewBag.GtPredstojeci = gt2;
+            
+
+            ViewBag.Korisnici = korisnici;
+            
+
+            return View("Index");
+        }
+        [HttpPost]
+
+        public ActionResult Prikazi()
+        {
+            Korisnik k = (Korisnik)Session["logedIn"];
+            List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
+            List<GrupniTrening> gt = new List<GrupniTrening>();
+            foreach(var item in grupniTreninzi)
+            {
+                if (k.GrupniTreninziKorisnikTrener != null)
+                {
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                    {
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt.Add(item);
+                        }
+                    }
+                }
+               
+            }
+
+            ViewBag.GtsTrenerZavrseni = gt;
+            List<GrupniTrening> gt2 = new List<GrupniTrening>();
+
+            foreach (var item in grupniTreninzi)
+            {
+                if (k.GrupniTreninziKorisnikTrener != null)
+                {
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                    {
+
+                        
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga > DateTime.Now)
+                        {
+                            gt2.Add(item);
+                        }
+                    }
+                }
+              
             }
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
 
@@ -348,8 +389,9 @@ namespace Projekat_WEB.Controllers
             List<Korisnik> korisnici = (List<Korisnik>)HttpContext.Application["korisnici"];
             foreach (var item in korisnici)
             {
-                if (item.Uloga == "POSETILAC")
+                if (item.Uloga == "POSETILAC"&& item.GrupniTreninziKorisnikPrijavljen!=null)
                 {
+                    
                     for (int i = 0; i < item.GrupniTreninziKorisnikPrijavljen.Count; i++)
                     {
                         if (item.GrupniTreninziKorisnikPrijavljen[i] == id)
@@ -364,9 +406,9 @@ namespace Projekat_WEB.Controllers
             return View(korImena);
         }
         [HttpPost]
-        public ActionResult PretragaKombinovano(int id,string tipTreninga)
+        public ActionResult PretragaKombinovano(int id,string tipTreninga,string godinaOd,string godinaDo)
         {
-            if (id == 0 && tipTreninga == "")
+            if (id == 0 && tipTreninga == ""&&godinaDo==""&& godinaOd=="")
             {
                 ViewBag.Greska = " Nisu uneseni podaci za pretragu";
             }
@@ -375,7 +417,57 @@ namespace Projekat_WEB.Controllers
 
             PretragaTip(tipTreninga);
 
+            PretragaGodina(godinaOd, godinaDo);
+
             return View();
+        }
+        public void PretragaGodina(string godinaOd,string godinaDo)
+        {
+            Korisnik k = (Korisnik)Session["logedIn"];
+            List<GrupniTrening> grupniTreninzi = (List<GrupniTrening>)HttpContext.Application["grupniTreninzi"];
+            List<GrupniTrening> gts = new List<GrupniTrening>();
+
+            List<GrupniTrening> gt1 = new List<GrupniTrening>();
+            foreach (var item in grupniTreninzi)
+            {
+                if (k.GrupniTreninziKorisnikPrijavljen != null)
+                {
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                    {
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
+                    }
+                }
+          
+            }
+            int od;
+            int doo;
+           
+            if (godinaOd != "" && godinaDo!="" && gt1.Count!=0)
+            {
+                Int32.TryParse(godinaOd, out od);
+                Int32.TryParse(godinaDo, out doo);
+
+
+                foreach (var gt in gt1)
+                {
+                    if (gt.DatumIVremeTreninga.Year >= od && gt.DatumIVremeTreninga.Year <= doo)
+                    {
+                        gts.Add(gt);
+                        ViewBag.Grupni = gts;
+
+                    }
+                }
+
+
+            }
+            if (gts.Count == 0)
+            {
+                ViewBag.Greska = "Nije pronadjen grupni trening  tih godina";
+            }
+
         }
         public void PretragaNaziv( int id)
         {
@@ -386,15 +478,19 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
+                if (k.GrupniTreninziKorisnikPrijavljen != null)
                 {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
+               
             }
-            if ( id != 0)
+            if ( id != 0 && gt1.Count!=0)
             {
                 foreach (GrupniTrening gt in gt1)
                 {
@@ -424,16 +520,20 @@ namespace Projekat_WEB.Controllers
             List<GrupniTrening> gt1 = new List<GrupniTrening>();
             foreach (var item in grupniTreninzi)
             {
-                for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
-                {
-                    if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                if (k.GrupniTreninziKorisnikPrijavljen != null) {
+
+                    for (int i = 0; i < k.GrupniTreninziKorisnikTrener.Count; i++)
                     {
-                        gt1.Add(item);
+                        if (k.GrupniTreninziKorisnikTrener[i] == item.Id && item.DatumIVremeTreninga < DateTime.Now)
+                        {
+                            gt1.Add(item);
+                        }
                     }
                 }
+              
             }
-            //sve korisnikove odredjenog tipa treninge
-            if (tip != "")
+            
+            if (tip != "" && gt1.Count!=0)
             {
                     foreach (var gt in gt1)
                     {

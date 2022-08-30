@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "BlokirajTrenera";
+    Layout = null;
+}
+@using Projekat_WEB.Models
+@model IEnumerable<Korisnik>
+<h2>Spisak trenera koji rade u vasim fitnes centrima:</h2>
+
+<head>
+    <style>
+        table, th, td, tr {
+            border: 1px solid;
+            border-color: antiquewhite;
+            color: antiquewhite;
+        }
+
+        #gradient {
+            max-width: 100%;
+            max-height: 100%;
+            background-color: gray;
+            color: white;
+            background-image: linear-gradient(-90deg, #808080,#000000);
+        }
+    </style>
+</head>
+
+
+<body id="gradient">
+    
+        <table>
+            <tr><th>Ime</th><th>Prezime</th><th>Korisnicko ime</th><th>Fitnes centar</th></tr>
+            @{
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Ime</td>
+                        <td>@item.Prezime</td>
+                        <td>
+                            @item.KorisnickoIme
+                        </td>
+                        <td>@item.AngazovanTrenerFitnesCentra</td>
+                        @if (item.Id == 0)
+                        {
+                            <td>Trener je blokiran</td>
+                        }
+                        else
+                        {
+                            <td>
+                                <form action="~/Vlasnik/Blokiraj" method="post">
+                                    <input type="hidden" value="@item.Id" name="id" />
+                                    <input type="submit" value="Blokiraj" />
+                                </form>
+                            </td> 
+                        
+                        }
+                        
+                    </tr>
+                }
+            }
+        </table>
+    
+
+    <h4 style="position:absolute; bottom:0;left:0">
+        Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+    </h4>  
+</body>

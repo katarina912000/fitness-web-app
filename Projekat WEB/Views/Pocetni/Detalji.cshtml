@@ -27,7 +27,7 @@
 </head>
 <body id="gradient">
     
-        <h2>Detalji fitnes cenwtra: @ViewBag.Data.Ime</h2>
+        <h2>Detalji fitnes centra: @ViewBag.Data.Ime</h2>
         
             <table >
                 <tr>
@@ -103,7 +103,7 @@
             @{Korisnik ko = (Korisnik)Session["logedIn"];
                 if (ko != null)
                 {
-                    if (ko.Uloga == UlogaEnum.Uloga.POSETILAC)
+                    if (ko.Uloga == "POSETILAC")
                     {
                         <th>Prijava:</th>
                     }
@@ -152,7 +152,7 @@
                         @if (Session["logedIn"] != null)
                     {
                         Korisnik k = (Korisnik)Session["logedIn"];
-                        if (k.Uloga == UlogaEnum.Uloga.POSETILAC)
+                        if (k.Uloga == "POSETILAC")
                         {
                             if (item.MaxBrojPosetilaca > count)
                             {
@@ -189,33 +189,45 @@
                                             }
         }
     </table>
-    @{ 
+    @{ List<string> komKor = new List<string>();
+        foreach (var it in ViewBag.KorisniciKom)
+        {
+            komKor.Add(it.KorisnickoIme);
+
+        }
         if (ViewBag.Komentari.Count != 0)
         {
-            <p>Komentari koji su posetioci ostavlili:</p>
+            <p>Komentari koji su posetioci ostavili:</p>
             <table>
-                @foreach (var item in ViewBag.Komentari)
-                {
-                    foreach (var it in ViewBag.KorisniciKom)
-                    {
-                        <tr>
-                            <th>Tekst komentara:</th>
-                            <th>Ocena od 1 do 5:</th>
-                            <th>Korisnicko ime:</th>
-                        </tr>
-                        <tr>
-                            <td>
-                                @item.TekstKomentara
-                            </td>
-                            <td>
-                                @item.Ocena
-                            </td>
-                            <td>
-                                @it.KorisnickoIme
-                            </td>
-                        </tr>
-                    }
-                }
+                <tr>
+                    <th>Tekst komentara:</th>
+                    <th>Ocena od 1 do 5:</th>
+                    <th>Korisnicko ime:</th>
+
+
+                </tr>
+                        @for (int i = 0; i < ViewBag.Komentari.Count; i++)
+                        {
+                            if (ViewBag.Komentari[i].Stanje == 1)
+                            {
+                                <tr>
+                                    <td>
+                                        @ViewBag.Komentari[i].TekstKomentara
+                                    </td>
+                                    <td>
+                                        @ViewBag.Komentari[i].Ocena
+                                    </td>
+                                    <td>@komKor[i]</td>
+
+
+                                </tr>
+                            }
+
+
+                        }
+            
+
+
             </table>
         }
     }
@@ -223,7 +235,7 @@
     @if (Session["logedIn"] != null)
     {
         Korisnik kor = (Korisnik)Session["logedIn"];
-        if (kor.Uloga == UlogaEnum.Uloga.POSETILAC)
+        if (kor.Uloga == "POSETILAC")
         {
             bool dozvola = false;
             foreach (var item in Model)
@@ -253,7 +265,9 @@
         }
 
     }
-            <h4>
-                Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
-            </h4>   
+    <div style="bottom:0;left:0;position:absolute">
+        <h4 style="position:fixed; bottom:0;right:0">
+            Povratak na <a href="~/Pocetni/Index"> pocetnu stranicu</a>
+        </h4>
+    </div>
 </body>

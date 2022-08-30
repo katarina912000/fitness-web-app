@@ -1,3 +1,1 @@
-﻿FLEX; 1;Sutjeska;2;Novi Sad;21000;2014;Milan;Maric;2500;12000;500;300;1500
-Non Stop Fitnes;2;Narodnih heroja;1;Novi Sad;21000;2015;Kristina;Milic;2500;13000;300;200;1700
-Bestfit 24h;3;Bulevar oslobodjenja;127;Novi Sad;21000;2018;Milica;Arsenijevic;3000;15000;600;400;1800
+Bestfit 24h;3;Bulevar oslobodjenja;127;Novi Sad;21000;2018;Milica;Arsenijevic;3000;15000;600;400;1800;FalseFLEX;1;Petra Drapsina;80;Novi Sad;21000;1988;Milan;Maric;2517;13000;500;300;1500;FalseNon Stop Fitnes;2;Narodnih heroja;1;Novi Sad;21000;2015;Kristina;Milic;2500;13000;300;200;1700;FalseTrening centar INVICTUS;4;Rumenacka;128;Novi Sad;21000;2010;Milan;Maric;3500;15000;500;400;2000;False

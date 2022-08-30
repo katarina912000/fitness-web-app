@@ -1,1 +1,1 @@
-1;4;Non Stop Fitnes;Svidelo mi se;42;12;Bestfit 24h;Treba bolje pojasniti vezbe;33;8;FLEX;Doci cu ponovo;54;12;Bestfit 24h;Nisam zadovljna;25;11;Non Stop Fitnes;Dobro je;4
+1;4;Non Stop Fitnes;Svidelo mi se;4;12;12;Bestfit 24h;Treba bolje pojasniti vezbe;3;13;8;FLEX;Doci cu ponovo;5;14;12;Bestfit 24h;Nisam zadovljna;2;05;11;Non Stop Fitnes;Dobro je;4;16;8;FLEX;:pp;5;17;12;FLEX;Dobro je;4;08;12;FLEX;Nije mi se svidelo sto se treneri ne brinu o njihovim ucenicicma i nadam se da ce se to popraviti do daljnjeg , anyway ....pozz za ekipu smajli;3;1
